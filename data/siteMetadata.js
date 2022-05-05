@@ -13,9 +13,9 @@ const siteMetadata = {
   email: 'timhilt@live.de',
   github: 'https://github.com/tim-hilt',
   twitter: 'https://twitter.com/HiltTim',
-  facebook: 'https://www.linkedin.com/in/tim-hilt-2958a11b7/',
+  facebook: '',
   youtube: '',
-  linkedin: '',
+  linkedin: 'https://www.linkedin.com/in/tim-hilt-2958a11b7/',
   locale: 'en-US',
   analytics: {
     // If you want to use an analytics provider you have to add it to the
