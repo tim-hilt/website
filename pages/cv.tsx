@@ -1,5 +1,8 @@
-const cv = () => {
-  return <div>Hi!</div>
-}
+import { CV } from "@/components/Cv";
+import { cvData } from "@/data/cvData";
 
-export default cv
+const cv = () => {
+  return <CV {...cvData} />;
+};
+
+export default cv;
