@@ -44,7 +44,7 @@ const RenderCorpEntry = (corpEntry: CorpEntry) => {
   return (
     <>
       <tr>
-        <td colSpan={2} className="text-2xl pt-2 pb-3">
+        <td colSpan={2} className="pt-2 pb-3 text-2xl">
           {corpEntry.corpName}
         </td>
       </tr>
@@ -58,11 +58,11 @@ const RenderCorpEntry = (corpEntry: CorpEntry) => {
 const CvEntry = ({ from, to, description, doings }: CvEntry) => {
   return (
     <tr>
-      <td className="align-top w-56">
+      <td className="w-56 align-top">
         {formatDate(from)} &ndash; {to === "present" ? to : formatDate(to)}
       </td>
-      <td className="align-top pb-8">
-        <h4 className="text-xl font-bold pb-2">{description}</h4>
+      <td className="pb-8 align-top">
+        <h4 className="pb-2 text-xl font-bold">{description}</h4>
         <ul className="list-inside list-disc text-gray-600 dark:text-gray-300">
           {doings.map((doing) => {
             if (typeof doing === "string") {
@@ -71,7 +71,7 @@ const CvEntry = ({ from, to, description, doings }: CvEntry) => {
             return (
               <>
                 <li key={doing.doing}>{doing.doing}</li>
-                <ul className="pl-8 list-circle text-gray-600 dark:text-gray-300">
+                <ul className="list-circle pl-8 text-gray-600 dark:text-gray-300">
                   {doing.subdoings.map((doing) => (
                     <li key={doing}>{doing}</li>
                   ))}
@@ -88,7 +88,7 @@ const CvEntry = ({ from, to, description, doings }: CvEntry) => {
 const RenderIntermediateHeading = ({ heading }: { heading: string }) => {
   return (
     <tr>
-      <td colSpan={2} className="text-4xl pb-7">
+      <td colSpan={2} className="pb-7 text-4xl">
         {heading}
       </td>
     </tr>
