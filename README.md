@@ -12,6 +12,5 @@ It was created using the [tailwind-nextjs-starter-blog](https://github.com/timlr
 - [ ] Add example blogpost to assert how maths and code-snippets look
 - [ ] Connect repository with GitHub
 - [ ] Deploy to GitHub.io
-- [ ] Fill tabs with life (especially CV!)
 - [ ] Add better logo
 - [ ] Adjust colors

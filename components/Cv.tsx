@@ -44,7 +44,7 @@ const RenderCorpEntry = (corpEntry: CorpEntry) => {
   return (
     <>
       <tr>
-        <td colSpan={2} className="text-2xl pb-3">
+        <td colSpan={2} className="text-2xl pt-2 pb-3">
           {corpEntry.corpName}
         </td>
       </tr>

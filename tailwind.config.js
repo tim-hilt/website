@@ -37,6 +37,7 @@ module.exports = {
         14: "3.5rem",
       },
       fontFamily: {
+        //@ts-ignore
         sans: ["InterVariable", ...defaultTheme.fontFamily.sans],
       },
       colors: {
