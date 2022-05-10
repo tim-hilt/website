@@ -40,15 +40,15 @@ const formatDate = (date: string): string => {
   return monthNames[d.getMonth()] + ". " + d.getFullYear();
 };
 
-const RenderCorpEntry = (entry: CorpEntry) => {
+const RenderCorpEntry = (corpEntry: CorpEntry) => {
   return (
     <>
       <tr>
         <td colSpan={2} className="text-2xl pb-3">
-          {entry.corpName}
+          {corpEntry.corpName}
         </td>
       </tr>
-      {entry.titleEntries.map((entry) => (
+      {corpEntry.titleEntries.map((entry) => (
         <CvEntry key={entry.description} {...entry} />
       ))}
     </>
@@ -86,11 +86,11 @@ const CvEntry = ({ from, to, description, doings }: CvEntry) => {
 };
 
 // TODO: Find smarter way to pass those props!
-interface foo {
+interface HeadingProps {
   heading: string;
 }
 
-const RenderIntermediateHeading = ({ heading }: foo) => {
+const RenderIntermediateHeading = ({ heading }: HeadingProps) => {
   return (
     <tr>
       <td colSpan={2} className="text-4xl pb-7">
