@@ -63,15 +63,15 @@ const CvEntry = ({ from, to, description, doings }: CvEntry) => {
       </td>
       <td className="align-top pb-8">
         <h4 className="text-xl font-bold pb-2">{description}</h4>
-        <ul className="list-disc text-gray-600 dark:text-gray-300 pl-8">
+        <ul className="list-inside list-disc text-gray-600 dark:text-gray-300">
           {doings.map((doing) => {
             if (typeof doing === "string") {
               return <li key={doing}>{doing}</li>;
             }
             return (
               <>
-                <li key={doing.doing}>{doing.doing}</li>;
-                <ul>
+                <li key={doing.doing}>{doing.doing}</li>
+                <ul className="pl-8 list-circle text-gray-600 dark:text-gray-300">
                   {doing.subdoings.map((doing) => (
                     <li key={doing}>{doing}</li>
                   ))}

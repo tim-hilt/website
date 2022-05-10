@@ -56,15 +56,14 @@ export const cvData: CvData = {
           to: "2020-02",
           description: "Internship - Creating educational Courses in Virtual Reality",
           doings: [
-            // TODO: Differentiate types in render-function, so that this can be included again
-            // {
-            //   doing: "Partnering with imsimity GmbH to create several courses:",
-            //   subdoings: [
-            //     "Production of Individualized Microsystems",
-            //     "Injection Molding in an Innovative Production-Line",
-            //     "Introduction to Machine Learning",
-            //   ],
-            // },
+            {
+              doing: "Partnering with imsimity GmbH to create several courses:",
+              subdoings: [
+                "Production of Individualized Microsystems",
+                "Injection Molding in an Innovative Production-Line",
+                "Introduction to Machine Learning",
+              ],
+            },
           ],
         },
         {
