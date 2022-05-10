@@ -85,12 +85,7 @@ const CvEntry = ({ from, to, description, doings }: CvEntry) => {
   );
 };
 
-// TODO: Find smarter way to pass those props!
-interface HeadingProps {
-  heading: string;
-}
-
-const RenderIntermediateHeading = ({ heading }: HeadingProps) => {
+const RenderIntermediateHeading = ({ heading }: { heading: string }) => {
   return (
     <tr>
       <td colSpan={2} className="text-4xl pb-7">
