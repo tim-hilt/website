@@ -13,8 +13,8 @@ jobs:
       with:
         node-version: 16
     - run: npm ci
-    - run: npm build
-    - run: npm export
+    - run: npm run build
+    - run: npm run export
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4.3.3
