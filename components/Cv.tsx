@@ -43,11 +43,7 @@ const formatDate = (date: string): string => {
 const RenderCorpEntry = (corpEntry: CorpEntry) => {
   return (
     <>
-      <tr>
-        <td colSpan={2} className="pt-2 pb-3 text-2xl">
-          {corpEntry.corpName}
-        </td>
-      </tr>
+      <h2 className="pt-2 pb-3 text-2xl">{corpEntry.corpName}</h2>
       {corpEntry.titleEntries.map((entry) => (
         <CvEntry key={entry.description} {...entry} />
       ))}
@@ -57,13 +53,13 @@ const RenderCorpEntry = (corpEntry: CorpEntry) => {
 
 const CvEntry = ({ from, to, description, doings }: CvEntry) => {
   return (
-    <tr>
-      <td className="w-56 align-top">
+    <div className="pb-10 md:flex">
+      <div className="shrink-0 grow-0 basis-56">
         {formatDate(from)} &ndash; {to === "present" ? to : formatDate(to)}
-      </td>
-      <td className="pb-8 align-top">
+      </div>
+      <div>
         <h4 className="pb-2 text-xl font-bold">{description}</h4>
-        <ul className="list-inside list-disc text-gray-600 dark:text-gray-300">
+        <ul className="list-disc pl-8 text-gray-600 dark:text-gray-300">
           {doings.map((doing) => {
             if (typeof doing === "string") {
               return <li key={doing}>{doing}</li>;
@@ -80,24 +76,18 @@ const CvEntry = ({ from, to, description, doings }: CvEntry) => {
             );
           })}
         </ul>
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 };
 
 const RenderIntermediateHeading = ({ heading }: { heading: string }) => {
-  return (
-    <tr>
-      <td colSpan={2} className="pb-7 text-4xl">
-        {heading}
-      </td>
-    </tr>
-  );
+  return <h2 className="pb-7 text-3xl md:text-4xl">{heading}</h2>;
 };
 
 export const CV = (data: CvData) => {
   return (
-    <table className="table-fixed">
+    <>
       <RenderIntermediateHeading heading="Professional Experience" />
       {data.workingExperience.map((entry) => (
         <RenderCorpEntry key={entry.corpName} {...entry} />
@@ -110,6 +100,6 @@ export const CV = (data: CvData) => {
       {data.volunteeringWork.map((entry) => (
         <CvEntry key={entry.description} {...entry} />
       ))}
-    </table>
+    </>
   );
 };
