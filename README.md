@@ -1,5 +1,7 @@
 # Next.js Website
 
+[![Build](https://github.com/tim-hilt/tim-hilt.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/tim-hilt/tim-hilt.github.io/actions/workflows/deploy.yml)
+
 This repository hosts my personal website.
 
 It was created using the [tailwind-nextjs-starter-blog](https://github.com/timlrx/tailwind-nextjs-starter-blog).
