@@ -22,6 +22,7 @@ jobs:
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git branch -a
           git switch gh-pages
           git add out/
           git commit -m "Push out/ to gh-pages"
