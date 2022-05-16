@@ -6,7 +6,8 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Setup NPM
         uses: actions/setup-node@v3
@@ -16,14 +17,12 @@ jobs:
       - run: npm run build
       - run: npm run export
       - run: touch out/.nojekyll
-      - run: ls -la
 
       - name: Push to gh-pages
-        uses: actions/checkout@v3
-      - run: |
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git checkout -b gh-pages
-          ls -la
           git add out/
           git commit -m "Push out/ to gh-pages"
+          git push
