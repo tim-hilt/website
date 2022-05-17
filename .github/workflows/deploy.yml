@@ -18,12 +18,11 @@ jobs:
       - run: npm run export
       - run: touch out/.nojekyll
 
-      - name: Commit and push build-output
-        run: |
-          cd out/
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add --all
-          git commit -m "Commiting build-output"
-          git push
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+          repository: tim-hilt/tim-hilt.github.io
+          directory: out
 
