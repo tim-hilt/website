@@ -30,4 +30,5 @@ jobs:
           branch: ${{ github.ref }}
           repository: tim-hilt/tim-hilt.github.io
           directory: out
+          force: true
 
