@@ -18,10 +18,6 @@ jobs:
       - run: npm run build
       - run: npm run export
 
-  push:
-    name: Push to tim-hilt.github.io
-    runs-on: ubuntu-latest
-    steps:
       - name: Add .nojekyll
         run: touch out/.nojekyll
 
