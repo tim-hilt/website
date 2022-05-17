@@ -20,6 +20,7 @@ jobs:
 
   push:
     name: Push to tim-hilt.github.io
+    runs-on: ubuntu-latest
     steps:
       - name: Add .nojekyll
         run: touch out/.nojekyll
