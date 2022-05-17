@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.push_action_pat }}
 
       - name: Setup NPM
         uses: actions/setup-node@v3
