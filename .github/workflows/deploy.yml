@@ -21,7 +21,7 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.github-push-token }}
+          github_token: ${{ secrets.github-push-action }}
           branch: ${{ github.ref }}
           repository: tim-hilt/tim-hilt.github.io
           directory: out
