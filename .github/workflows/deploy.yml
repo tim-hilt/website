@@ -3,7 +3,8 @@ on:
   push:
     branches: [main]
 jobs:
-  build-and-deploy:
+  build:
+    name: Build project
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -16,12 +17,15 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run export
-      - run: touch out/.nojekyll
 
+  push:
+    name: Push to tim-hilt.github.io
+    steps:
       - name: Push changes
         uses: ad-m/github-push-action@master
+        run: touch out/.nojekyll
         with:
-          github_token: ${{ secrets.github-push-action }}
+          github_token: ${{ secrets.push_action_pat }}
           branch: ${{ github.ref }}
           repository: tim-hilt/tim-hilt.github.io
           directory: out
