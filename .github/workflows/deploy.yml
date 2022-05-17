@@ -1,4 +1,4 @@
-name: Deploy to GitHub pages
+name: Build and push to tim-hilt.github.io
 on:
   push:
     branches: [main]
