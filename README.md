@@ -8,8 +8,10 @@ It was created using the [tailwind-nextjs-starter-blog](https://github.com/timlr
 
 ## TODO
 
-- [ ] Clean up blogposts
+- [ ] Add light syntax-highlighting
 - [ ] Add example blogpost to assert how maths and code-snippets look
-- [ ] Deploy to GitHub.io
+- [ ] Clean up blogposts
 - [ ] Add better logo
+- [ ] Adjust About page
+- [ ] Add pdf-CV
 - [ ] Adjust colors
