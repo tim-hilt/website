@@ -43,6 +43,9 @@ module.exports = {
       colors: {
         primary: colors.teal,
         gray: colors.neutral,
+        // OneDark / OneLight colors
+        darkSyntaxBg: "#282c34",
+        lightSyntaxBg: "#fafafa",
       },
       typography: (theme) => ({
         DEFAULT: {
@@ -73,7 +76,7 @@ module.exports = {
               color: theme("colors.gray.900"),
             },
             pre: {
-              backgroundColor: theme("colors.gray.800"),
+              backgroundColor: theme("colors.lightSyntaxBg"),
             },
             code: {
               color: theme("colors.pink.500"),
@@ -141,7 +144,7 @@ module.exports = {
               color: theme("colors.gray.100"),
             },
             pre: {
-              backgroundColor: theme("colors.gray.800"),
+              backgroundColor: theme("colors.darkSyntaxBg"),
             },
             code: {
               backgroundColor: theme("colors.gray.800"),
