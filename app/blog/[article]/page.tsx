@@ -4,6 +4,7 @@ import path from "path";
 
 /**
  * TODO: Check if next-mdx-rendering can be removed (in favor of next-mdx-remote)
+ * TODO: Check key-error in browser console
  * TODO: Correct rendering of text-sizes and padding
  * TODO: Render header component from frontmatter
  * TODO: Add syntax-highlighting to code-blocks

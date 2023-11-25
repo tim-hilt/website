@@ -43,8 +43,8 @@ export default async function Blog() {
         date: new Date(date),
         description,
       };
-    })
-    .toSorted((a, b) => +b.date - +a.date);
+    });
+  blogposts.sort((a, b) => +b.date - +a.date);
   return (
     <ul className="flex flex-col space-y-8">
       {blogposts.map(({ filename, title, date, description }) => {
