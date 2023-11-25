@@ -20,9 +20,9 @@ function NavBar() {
         Tim Hilt
       </Link>
       <div className="space-x-5">
+        <Link href="/blog">Blog</Link>
         <Link href="/projects">Projects</Link>
         <Link href="/cv">CV</Link>
-        <Link href="/todos">TODOs</Link>
       </div>
     </nav>
   );
@@ -31,7 +31,7 @@ function NavBar() {
 function Footer() {
   return (
     <footer className="flex justify-center text-slate-500 dark:text-slate-200">
-      {/** TODO: Add other socials here */}
+      {/* TODO: Add other socials here */}
       <Link href="mailto:timhilt@live.de">Write Mail</Link>
     </footer>
   );
@@ -40,7 +40,7 @@ function Footer() {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className={`${font.className}`}>
-      <body className="flex min-h-screen flex-col p-8 dark:bg-slate-800 dark:text-slate-50">
+      <body className="flex min-h-screen flex-col p-8 dark:bg-black dark:text-slate-50">
         <header className="">
           <NavBar />
         </header>
