@@ -16,10 +16,10 @@ const font = Open_Sans({
 function NavBar() {
   return (
     <nav className="mb-8 flex text-xl">
-      <Link href="/" className="grow">
+      <Link href="/" className="grow font-semibold">
         Tim Hilt
       </Link>
-      <div className="space-x-5">
+      <div className="space-x-5 font-light">
         <Link href="/blog">Blog</Link>
         <Link href="/projects">Projects</Link>
         <Link href="/cv">CV</Link>
@@ -30,7 +30,7 @@ function NavBar() {
 
 function Footer() {
   return (
-    <footer className="flex justify-center text-slate-500 dark:text-slate-200">
+    <footer className="mt-7 flex justify-center text-slate-500 dark:text-slate-200">
       {/* TODO: Add other socials here */}
       <Link href="mailto:timhilt@live.de">Write Mail</Link>
     </footer>
