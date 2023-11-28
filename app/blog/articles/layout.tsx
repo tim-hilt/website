@@ -1,12 +1,10 @@
-import { PropsWithChildren } from "react";
-
 type Frontmatter = {
   title: string;
   date: Date;
   description: string;
 };
 
-// TODO: Use this to render frontmatter
+// TODO: 2. Use this to render frontmatter
 const Header = ({ title, date, description }: Frontmatter) => (
   <div>
     <title className="flex justify-center text-5xl">{title}</title>
@@ -20,15 +18,18 @@ const Header = ({ title, date, description }: Frontmatter) => (
 /**
  * TODO: Check key-error in browser console
  * TODO: WHY THE SERVERSIDE-ERROR??? -> Mit prod-deployment (pnpm build && pnpm start) nachstellen
- * TODO: Add syntax-highlighting to code-blocks
  * TODO: Add getStaticProps
  * TODO: Add getMetaData
  * TODO: Add TOC in sidebar
  * TODO: Check if everything looks good on mobile too
  * TODO: Check if everything looks good in light-mode too
+ * TODO: What should be a dep? What should be a devDep?
  */
-export default function RootLayout({ children }: PropsWithChildren) {
+export default function RootLayout(props) {
+  console.log(props);
   return (
-    <article className="prose mx-auto dark:prose-invert">{children}</article>
+    <article className="prose mx-auto dark:prose-invert">
+      {props.children}
+    </article>
   );
 }

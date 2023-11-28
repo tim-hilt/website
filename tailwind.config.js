@@ -7,6 +7,17 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    hljs: {
+      theme: "night-owl", // TODO: Find out why only some of the themes work and how to enable others
+    },
   },
-  plugins: [require("@tailwindcss/typography")],
+  safelist: [
+    {
+      pattern: /hljs+/,
+    },
+  ],
+  plugins: [
+    require("@tailwindcss/typography"),
+    require("tailwind-highlightjs"),
+  ],
 };
