@@ -1,3 +1,5 @@
+import { PropsWithChildren } from "react";
+
 type Frontmatter = {
   title: string;
   date: Date;
@@ -25,11 +27,8 @@ const Header = ({ title, date, description }: Frontmatter) => (
  * TODO: Check if everything looks good in light-mode too
  * TODO: What should be a dep? What should be a devDep?
  */
-export default function RootLayout(props) {
-  console.log(props);
+export default function BlogLayout({ children }: PropsWithChildren) {
   return (
-    <article className="prose mx-auto dark:prose-invert">
-      {props.children}
-    </article>
+    <article className="prose mx-auto dark:prose-invert">{children}</article>
   );
 }
