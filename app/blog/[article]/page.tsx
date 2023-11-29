@@ -25,12 +25,9 @@ const Header = ({ title, date, description }: Frontmatter) => (
 
 /**
  * TODO: Check key-error in browser console
- * TODO: next-specific stuff required?
  * TODO: Add getMetaData
  * TODO: Add TOC in sidebar
- * TODO: Check if everything looks good on mobile too
  * TODO: Check if everything looks good in light-mode too
- * TODO: What should be a dep? What should be a devDep?
  */
 export default function BlogLayout({
   params,

@@ -3,6 +3,12 @@ import matter from "gray-matter";
 import Link from "next/link";
 import path from "path";
 
+export const metadata = {
+  title: "Tim Hilt - Blog",
+  description: "Blog of Tim Hilt",
+  author: "Tim Hilt",
+};
+
 type PostMeta = {
   title: string;
   date: Date;

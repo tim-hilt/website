@@ -3,11 +3,6 @@ import Link from "next/link";
 import type { PropsWithChildren } from "react";
 import "./globals.css";
 
-export const metadata = {
-  title: "Website",
-  description: "My personal website",
-};
-
 const font = Open_Sans({
   subsets: ["latin"],
   display: "swap",
@@ -21,6 +16,7 @@ function NavBar() {
       </Link>
       <div className="space-x-5 font-light">
         <Link href="/blog">Blog</Link>
+        {/** TODO: Add tools / projects / explorations */}
       </div>
     </nav>
   );
