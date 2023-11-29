@@ -21,8 +21,6 @@ function NavBar() {
       </Link>
       <div className="space-x-5 font-light">
         <Link href="/blog">Blog</Link>
-        <Link href="/projects">Projects</Link>
-        <Link href="/cv">CV</Link>
       </div>
     </nav>
   );
@@ -32,6 +30,7 @@ function Footer() {
   return (
     <footer className="flex justify-center p-8 text-slate-500 dark:text-slate-200">
       {/* TODO: Add other socials here */}
+      {/* TODO: Which icons could I use for that? */}
       <Link href="mailto:timhilt@live.de">Write Mail</Link>
     </footer>
   );

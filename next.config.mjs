@@ -1,17 +1,11 @@
 import nextMDX from "@next/mdx";
-import rehypeHighlight from "rehype-highlight";
-import remarkFrontmatter from "remark-frontmatter";
-import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "mdx"],
+  experimental: {
+    mdxRs: true,
+  },
 };
 
-const withMDX = nextMDX({
-  options: {
-    remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
-    rehypePlugins: [rehypeHighlight],
-  },
-});
-
-export default withMDX(nextConfig);
+export default nextMDX()(nextConfig);

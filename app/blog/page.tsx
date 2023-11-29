@@ -15,7 +15,7 @@ const PostCard = ({ title, date, description }: PostMeta) => {
       <div className="group-hover: absolute -inset-0.5 rounded-lg bg-amber-400 opacity-50 blur-md transition duration-200 group-hover:opacity-75"></div>
       <div className="relative rounded-lg p-4 leading-none dark:bg-black">
         <div className="mb-2 flex items-center">
-          <div className="mr-3">{title}</div>
+          <div className="mr-3 grow">{title}</div>
           <div className="text-xs dark:text-slate-500">
             {date.toLocaleDateString()}
           </div>
