@@ -15,7 +15,7 @@ const font = Open_Sans({
 
 function NavBar() {
   return (
-    <nav className="mb-8 flex text-xl">
+    <nav className="flex p-8 text-xl">
       <Link href="/" className="grow font-semibold">
         Tim Hilt
       </Link>
@@ -30,7 +30,7 @@ function NavBar() {
 
 function Footer() {
   return (
-    <footer className="mt-7 flex justify-center text-slate-500 dark:text-slate-200">
+    <footer className="flex justify-center p-8 text-slate-500 dark:text-slate-200">
       {/* TODO: Add other socials here */}
       <Link href="mailto:timhilt@live.de">Write Mail</Link>
     </footer>
@@ -40,11 +40,11 @@ function Footer() {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className={`${font.className}`}>
-      <body className="flex min-h-screen flex-col p-8 dark:bg-black dark:text-slate-50">
+      <body className="flex min-h-screen flex-col dark:bg-black dark:text-slate-50">
         <header className="">
           <NavBar />
         </header>
-        <main className="grow">{children}</main>
+        <main className="grow p-8">{children}</main>
         <Footer />
       </body>
     </html>

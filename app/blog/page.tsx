@@ -28,32 +28,32 @@ const PostCard = ({ title, date, description }: PostMeta) => {
   );
 };
 
-// TODO: Get rid of gray-matter - render frontmatter using remarkFrontmatter
 export default async function Blog() {
   const blogposts = fs
-    .readdirSync(path.join("app", "blog", "articles"), { withFileTypes: true })
-    .filter((fn) => fn.isDirectory())
+    .readdirSync(path.join("app", "blog", "[article]", "articles"))
+    .filter((fn) => fn.endsWith(".mdx"))
     .map((fn) => {
       const file = fs.readFileSync(
-        path.join("app", "blog", "articles", fn.name, "page.mdx")
+        path.join("app", "blog", "[article]", "articles", fn)
       );
       const {
         data: { title, date, description },
       } = matter(file);
       return {
-        filename: fn.name,
+        filename: path.parse(fn).name,
         title,
         date: new Date(date),
         description,
       };
     });
   blogposts.sort((a, b) => +b.date - +a.date);
+
   return (
     <ul className="flex flex-col space-y-8">
       {blogposts.map(({ filename, title, date, description }) => {
         return (
           <li key={filename}>
-            <Link href={`/blog/articles/${filename}`}>
+            <Link href={`/blog/${filename}`}>
               <PostCard title={title} date={date} description={description} />
             </Link>
           </li>
