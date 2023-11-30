@@ -13,7 +13,9 @@ type Frontmatter = {
 const Header = ({ title, date, description }: Frontmatter) => (
   <div>
     <div className="w-2xl mx-auto items-center">
-      <h1 className="mb-8 flex justify-center text-4xl sm:text-6xl">{title}</h1>
+      <h1 className="mb-8 flex justify-center text-center text-4xl sm:text-6xl">
+        {title}
+      </h1>
       <div className="text-xs dark:text-slate-500">
         {date.toLocaleDateString()}
       </div>

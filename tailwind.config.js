@@ -6,7 +6,12 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)"],
+        mono: ["var(--font-mono)"],
+      },
+    },
     hljs: {
       theme: "night-owl", // TODO: Find out why only some of the themes work and how to enable others
     },

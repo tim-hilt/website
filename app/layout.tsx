@@ -1,11 +1,18 @@
-import { Open_Sans } from "next/font/google";
+import { JetBrains_Mono, Open_Sans } from "next/font/google";
 import Link from "next/link";
 import type { PropsWithChildren } from "react";
 import "./globals.css";
 
-const font = Open_Sans({
+const font_sans = Open_Sans({
   subsets: ["latin"],
   display: "swap",
+  variable: "--font-sans",
+});
+
+const font_mono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
 });
 
 function NavBar() {
@@ -34,7 +41,10 @@ function Footer() {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" className={`${font.className}`}>
+    <html
+      lang="en"
+      className={`${font_sans.variable} ${font_mono.variable} font-sans`}
+    >
       <body className="flex min-h-screen flex-col dark:bg-black dark:text-slate-50">
         <header className="">
           <NavBar />
