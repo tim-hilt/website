@@ -19,12 +19,19 @@ function NavBar() {
   return (
     <nav className="flex p-8 text-xl">
       <div className="grow">
-        <Link href="/" className="font-semibold hover:font-bold">
-          Tim Hilt
-        </Link>
+        <div className="flex w-20 justify-center">
+          <Link
+            href="/"
+            className="font-semibold transition duration-100 hover:scale-105"
+          >
+            Tim Hilt
+          </Link>
+        </div>
       </div>
-      <div className="space-x-5 font-light hover:font-medium">
-        <Link href="/blog">Blog</Link>
+      <div className="flex font-light">
+        <div className="flex w-20 justify-center transition duration-100 hover:scale-105">
+          <Link href="/blog">Blog</Link>
+        </div>
         {/** TODO: Add tools / projects / explorations */}
       </div>
     </nav>
