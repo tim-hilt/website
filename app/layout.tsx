@@ -18,10 +18,10 @@ const font_mono = JetBrains_Mono({
 function NavBar() {
   return (
     <nav className="flex p-8 text-xl">
-      <Link href="/" className="grow font-semibold">
+      <Link href="/" className="grow font-semibold hover:font-bold">
         Tim Hilt
       </Link>
-      <div className="space-x-5 font-light">
+      <div className="space-x-5 font-light hover:font-medium">
         <Link href="/blog">Blog</Link>
         {/** TODO: Add tools / projects / explorations */}
       </div>
