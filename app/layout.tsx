@@ -41,10 +41,7 @@ function Footer() {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html
-      lang="en"
-      className={`${font_sans.variable} ${font_mono.variable} font-sans`}
-    >
+    <html lang="en" className={`${font_sans.variable} ${font_mono.variable}`}>
       <body className="flex min-h-screen flex-col dark:bg-black dark:text-slate-50">
         <header className="">
           <NavBar />
