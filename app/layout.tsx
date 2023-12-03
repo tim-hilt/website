@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { JetBrains_Mono, Open_Sans } from "next/font/google";
 import Link from "next/link";
 import type { PropsWithChildren } from "react";
+import { NavBar } from "./NavBar";
 import "./globals.css";
 
 config.autoAddCss = false;
@@ -26,29 +27,6 @@ const font_mono = JetBrains_Mono({
   display: "swap",
   variable: "--font-mono",
 });
-
-function NavBar() {
-  return (
-    <nav className="flex p-8 text-xl">
-      <div className="grow">
-        <div className="flex w-20 justify-center">
-          <Link
-            href="/"
-            className="font-semibold transition duration-100 hover:scale-105"
-          >
-            Tim Hilt
-          </Link>
-        </div>
-      </div>
-      <div className="flex font-light">
-        <div className="flex w-20 justify-center transition duration-100 hover:scale-105">
-          <Link href="/blog">Blog</Link>
-        </div>
-        {/** TODO: Add tools / projects / explorations */}
-      </div>
-    </nav>
-  );
-}
 
 function Footer() {
   return (
