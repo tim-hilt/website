@@ -26,7 +26,6 @@ const Header = ({ title, date, description }: Frontmatter) => (
 );
 
 /**
- * TODO: Add getMetaData
  * TODO: Add TOC in sidebar
  * TODO: Check if everything looks good in light-mode too
  */
@@ -64,4 +63,16 @@ export function generateStaticParams() {
     .readdirSync(path.join("app", "blog", "[article]", "articles"))
     .filter((fn) => fn.endsWith(".mdx"))
     .map((fn) => ({ article: path.parse(fn).name }));
+}
+
+export function generateMetadata({ params }: { params: { article: string } }) {
+  const content = fs.readFileSync(
+    path.join("app", "blog", "[article]", "articles", params.article + ".mdx")
+  );
+  const { content: markdown, data: frontmatter } = matter(content);
+  return {
+    title: `${frontmatter.title} | Blog | Tim Hilt`,
+    description: frontmatter.description,
+    author: "Tim Hilt",
+  };
 }

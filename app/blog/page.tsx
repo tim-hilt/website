@@ -4,7 +4,7 @@ import Link from "next/link";
 import path from "path";
 
 export const metadata = {
-  title: "Tim Hilt - Blog",
+  title: "Blog | Tim Hilt",
   description: "Blog of Tim Hilt",
   author: "Tim Hilt",
 };
