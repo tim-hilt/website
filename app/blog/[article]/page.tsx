@@ -26,7 +26,6 @@ const Header = ({ title, date, description }: Frontmatter) => (
 );
 
 /**
- * TODO: Check key-error in browser console
  * TODO: Add getMetaData
  * TODO: Add TOC in sidebar
  * TODO: Check if everything looks good in light-mode too

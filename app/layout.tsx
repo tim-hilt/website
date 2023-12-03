@@ -1,7 +1,19 @@
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import {
+  faGithub,
+  faLinkedin,
+  faSquareXing,
+  faStackOverflow,
+} from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { JetBrains_Mono, Open_Sans } from "next/font/google";
 import Link from "next/link";
 import type { PropsWithChildren } from "react";
 import "./globals.css";
+
+config.autoAddCss = false;
 
 const font_sans = Open_Sans({
   subsets: ["latin"],
@@ -40,10 +52,22 @@ function NavBar() {
 
 function Footer() {
   return (
-    <footer className="flex justify-center p-8 text-slate-500 dark:text-slate-200">
-      {/* TODO: Add other socials here */}
-      {/* TODO: Which icons could I use for that? */}
-      <Link href="mailto:timhilt@live.de">Write Mail</Link>
+    <footer className="flex justify-center space-x-5 p-8 text-slate-500 dark:text-slate-200">
+      <Link href="mailto:timhilt@live.de">
+        <FontAwesomeIcon icon={faEnvelope} />
+      </Link>
+      <Link href="https://github.com/tim-hilt">
+        <FontAwesomeIcon icon={faGithub} />
+      </Link>
+      <Link href="https://stackoverflow.com/users/9076590/tim-hilt">
+        <FontAwesomeIcon icon={faStackOverflow} />
+      </Link>
+      <Link href="https://www.linkedin.com/in/tim-hilt-2958a11b7/">
+        <FontAwesomeIcon icon={faLinkedin} />
+      </Link>
+      <Link href="https://www.xing.com/profile/Tim_Hilt2/">
+        <FontAwesomeIcon icon={faSquareXing} />
+      </Link>
     </footer>
   );
 }
