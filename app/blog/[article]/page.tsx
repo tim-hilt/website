@@ -16,18 +16,19 @@ const Header = ({ title, date, description }: Frontmatter) => (
       <h1 className="mb-8 flex justify-center text-center text-4xl sm:text-6xl">
         {title}
       </h1>
-      <div className="text-xs dark:text-slate-500">
+      <div className="text-xs dark:text-slate-500 text-slate-600">
         {date.toLocaleDateString()}
       </div>
-      <div className="py-3 dark:text-slate-500">{description}</div>
+      <div className="py-3 dark:text-slate-500 text-slate-600">
+        {description}
+      </div>
     </div>
-    <hr className="mb-10 mt-3 dark:border-slate-500" />
+    <hr className="mb-10 mt-3 dark:border-slate-500 text-slate-600" />
   </div>
 );
 
 /**
  * TODO: Add TOC in sidebar
- * TODO: Check if everything looks good in light-mode too
  */
 export default function BlogLayout({
   params,

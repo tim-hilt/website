@@ -28,6 +28,13 @@ const font_mono = JetBrains_Mono({
   variable: "--font-mono",
 });
 
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
+};
+
 function Footer() {
   return (
     <footer className="flex justify-center space-x-5 p-8 text-slate-500 dark:text-slate-200">

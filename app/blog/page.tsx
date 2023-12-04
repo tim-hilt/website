@@ -18,15 +18,15 @@ type PostMeta = {
 const PostCard = ({ title, date, description }: PostMeta) => {
   return (
     <div className="group relative">
-      <div className="group-hover: absolute -inset-0.5 rounded-lg bg-amber-400 opacity-50 blur-md transition duration-200 group-hover:opacity-75"></div>
-      <div className="relative rounded-lg p-4 leading-none dark:bg-black">
+      <div className="group-hover: absolute -inset-0.5 rounded-lg dark:bg-amber-400 bg-amber-600 opacity-50 blur-md transition duration-200 group-hover:opacity-75"></div>
+      <div className="relative rounded-lg p-4 leading-none dark:bg-black bg-white">
         <div className="mb-2 flex items-center">
           <div className="mr-3 grow">{title}</div>
-          <div className="text-xs dark:text-slate-500">
+          <div className="text-xs dark:text-slate-500 text-slate-700">
             {date.toLocaleDateString()}
           </div>
         </div>
-        <div className="truncate text-sm dark:text-slate-500">
+        <div className="truncate text-sm dark:text-slate-500 text-slate-700">
           {description}
         </div>
       </div>
