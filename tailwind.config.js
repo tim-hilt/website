@@ -12,17 +12,6 @@ module.exports = {
         mono: ["var(--font-mono)"],
       },
     },
-    hljs: {
-      theme: "night-owl", // TODO: Find out why only some of the themes work and how to enable others
-    },
   },
-  safelist: [
-    {
-      pattern: /hljs+/,
-    },
-  ],
-  plugins: [
-    require("@tailwindcss/typography"),
-    require("tailwind-highlightjs"),
-  ],
+  plugins: [require("@tailwindcss/typography")],
 };
