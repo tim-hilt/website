@@ -27,6 +27,14 @@ const Header = ({ title, date, description }: Frontmatter) => (
   </div>
 );
 
+const codeStyle = {
+  theme: {
+    dark: "github-dark",
+    light: "github-light",
+  },
+  keepBackground: false,
+};
+
 /**
  * TODO: Add TOC in sidebar
  */
@@ -46,12 +54,12 @@ export default function BlogLayout({
         date={frontmatter.date}
         description={frontmatter.description}
       />
-      <article className="prose mx-auto text-justify dark:prose-invert">
+      <article className="prose mx-auto text-justify dark:prose-invert prose-pre:bg-transparent">
         <MDXRemote
           source={markdown}
           options={{
             // @ts-ignore
-            mdxOptions: { rehypePlugins: [[rehypePrettyCode, {}]] },
+            mdxOptions: { rehypePlugins: [[rehypePrettyCode, codeStyle]] },
           }}
         />
       </article>
