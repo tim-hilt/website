@@ -2,7 +2,7 @@ import fs from "fs";
 import matter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import path from "path";
-import rehypeHighlight from "rehype-highlight";
+import rehypePrettyCode from "rehype-pretty-code";
 
 type Frontmatter = {
   title: string;
@@ -51,7 +51,7 @@ export default function BlogLayout({
           source={markdown}
           options={{
             // @ts-ignore
-            mdxOptions: { rehypePlugins: [rehypeHighlight] },
+            mdxOptions: { rehypePlugins: [[rehypePrettyCode, {}]] },
           }}
         />
       </article>
@@ -70,7 +70,7 @@ export function generateMetadata({ params }: { params: { article: string } }) {
   const content = fs.readFileSync(
     path.join("app", "blog", "[article]", "articles", params.article + ".mdx")
   );
-  const { content: markdown, data: frontmatter } = matter(content);
+  const { data: frontmatter } = matter(content);
   return {
     title: `${frontmatter.title} | Blog | Tim Hilt`,
     description: frontmatter.description,
