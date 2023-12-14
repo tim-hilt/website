@@ -64,7 +64,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       className={`${font_sans.variable} ${font_mono.variable} antialiased`}
     >
       <body className="flex min-h-[100dvh] flex-col dark:bg-black dark:text-slate-50">
-        <header className="">
+        <header className="sticky top-0 bg-white dark:bg-black">
           <NavBar />
         </header>
         <main className="grow p-8">{children}</main>
