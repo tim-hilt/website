@@ -4,7 +4,7 @@ export const metadata = {
   author: "Tim Hilt",
 };
 
-export default function Home() {
+export default function Page() {
   return (
     <div className="mt-16 flex flex-col items-center text-center">
       <h1 className="text-6xl font-bold">Hi there!</h1>
