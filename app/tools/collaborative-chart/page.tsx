@@ -35,7 +35,10 @@ function LinePlot({
   const y = d3.scaleLinear([minY, maxY], [height - marginBottom, marginTop]);
   const line = d3.line((_, i) => x(i), y);
 
+  // TODO: Resolve those ts-ignores
+  // @ts-ignore
   useEffect(() => void d3.select(gx.current).call(d3.axisBottom(x)), [gx, x]);
+  // @ts-ignore
   useEffect(() => void d3.select(gy.current).call(d3.axisLeft(y)), [gy, y]);
 
   return (
