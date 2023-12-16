@@ -38,19 +38,25 @@ export const viewport = {
 function Footer() {
   return (
     <footer className="flex justify-center space-x-5 p-8 text-slate-500 dark:text-slate-200">
-      <Link href="mailto:timhilt@live.de">
+      <Link href="mailto:timhilt@live.de" target="_blank">
         <FontAwesomeIcon icon={faEnvelope} />
       </Link>
-      <Link href="https://github.com/tim-hilt">
+      <Link href="https://github.com/tim-hilt" target="_blank">
         <FontAwesomeIcon icon={faGithub} />
       </Link>
-      <Link href="https://stackoverflow.com/users/9076590/tim-hilt">
+      <Link
+        href="https://stackoverflow.com/users/9076590/tim-hilt"
+        target="_blank"
+      >
         <FontAwesomeIcon icon={faStackOverflow} />
       </Link>
-      <Link href="https://www.linkedin.com/in/tim-hilt-2958a11b7/">
+      <Link
+        href="https://www.linkedin.com/in/tim-hilt-2958a11b7/"
+        target="_blank"
+      >
         <FontAwesomeIcon icon={faLinkedin} />
       </Link>
-      <Link href="https://www.xing.com/profile/Tim_Hilt2/">
+      <Link href="https://www.xing.com/profile/Tim_Hilt2/" target="_blank">
         <FontAwesomeIcon icon={faSquareXing} />
       </Link>
     </footer>
