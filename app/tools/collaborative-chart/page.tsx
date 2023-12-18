@@ -102,6 +102,7 @@ export default function Page() {
           name="x"
           step="any"
           placeholder="x"
+          required
         />
         <input
           className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-black border-black dark:bg-black dark:text-slate-200 dark:border-slate-200 border rounded-md px-2 py-1 outline-none"
@@ -109,6 +110,7 @@ export default function Page() {
           name="y"
           step="any"
           placeholder="y"
+          required
         />
         <input type="submit" className="hidden" />
       </form>
