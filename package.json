@@ -13,10 +13,14 @@
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@syncedstore/core": "^0.6.0",
+    "@syncedstore/react": "^0.6.0",
     "d3": "^7.8.5",
     "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "y-websocket": "^1.5.1",
+    "yjs": "^13.6.10"
   },
   "devDependencies": {
     "@mdx-js/loader": "^3.0.0",
