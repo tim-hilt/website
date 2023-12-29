@@ -11,7 +11,6 @@ export type Point = {
   y: number;
 };
 
-// TODO: Don't use this hook, determine size on server
 const useDimensions = (targetRef: React.RefObject<HTMLDivElement>) => {
   const getDimensions = () => {
     return {
@@ -157,7 +156,7 @@ const globalStore = syncedStore({ points: [] as Array<Point> });
 // run WebsocketProvider on server
 export default function Page({ params }: { params: { uuid: string } }) {
   new WebsocketProvider(
-    "ws://49.13.155.89:1234",
+    process.env.NEXT_PUBLIC_WEBSOCKET_SERVER as string,
     params.uuid,
     getYjsValue(globalStore) as any
   );
