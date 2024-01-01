@@ -28,10 +28,10 @@ export default function Page() {
   return (
     <div className="flex flex-col md:w-[60vw] mx-auto">
       <p className="text-justify">
-        Enter a chart name or just click on "Create New Chart" without inputting
-        something. If no input is given, the presented default value, which is a
-        randomly generated UUID will be used to create the chart. You can also
-        use this option if you want to add a level of security
+        Enter a chart name or just click on &quot;Create New Chart&quot; without
+        inputting something. If no input is given, the presented default value,
+        which is a randomly generated UUID will be used to create the chart. You
+        can also use this option if you want to add a level of security
       </p>
       <form onSubmit={createChart} className="md:mt-[15dvh] mt-[5dvh]">
         <div className="mb-[5dvh] flex items-center">
