@@ -61,7 +61,7 @@ function ScatterPlot({ points }: { points: Array<Point> }) {
   useEffect(() => void d3.select(gy.current).call(d3.axisLeft(y)), [gy, y]);
 
   return (
-    <div ref={scatterPlotContainer} className="w-full h-[50dvh]">
+    <div ref={scatterPlotContainer} className="w-full md:h-[50dvh] h-[40dvh]">
       <svg width={width} height={height}>
         <g ref={gx} transform={`translate(0,${height - marginBottom})`} />
         <g ref={gy} transform={`translate(${marginLeft},0)`} />
@@ -92,7 +92,7 @@ function CoordinatesForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 mb-5"
+      className="flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 md:mb-5"
     >
       <div>
         <label htmlFor="x">x</label>
@@ -172,6 +172,9 @@ export default function Page({ params }: { params: { chartName: string } }) {
 
   return (
     <div className="flex flex-col justify-center items-center">
+      <h1 className="mb-4 md:text-xl">
+        {decodeURIComponent(params.chartName)}
+      </h1>
       <CoordinatesForm />
       <ScatterPlot points={store.points} />
       <CoordinatesTable />
