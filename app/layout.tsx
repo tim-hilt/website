@@ -12,6 +12,7 @@ import { JetBrains_Mono, Open_Sans } from "next/font/google";
 import Link from "next/link";
 import type { PropsWithChildren } from "react";
 import { NavBar } from "./NavBar";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 config.autoAddCss = false;
@@ -73,7 +74,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <header className="sticky top-0 bg-white dark:bg-black">
           <NavBar />
         </header>
-        <main className="grow p-8">{children}</main>
+        <main className="grow p-8">
+          {children}
+          <SpeedInsights />
+        </main>
         <Footer />
       </body>
     </html>
