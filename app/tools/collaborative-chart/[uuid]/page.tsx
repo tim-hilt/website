@@ -90,28 +90,35 @@ function CoordinatesForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex space-x-5 mb-5">
-      <label htmlFor="x">x</label>
-      <input
-        className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border-black dark:bg-black dark:border-slate-200 border rounded-md px-2 py-1"
-        type="number"
-        name="x"
-        id="x"
-        step="any"
-        placeholder="0"
-        required
-        autoFocus
-      />
-      <label htmlFor="y">y</label>
-      <input
-        className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border-black dark:bg-black dark:border-slate-200 border rounded-md px-2 py-1"
-        type="number"
-        name="y"
-        id="y"
-        step="any"
-        placeholder="0"
-        required
-      />
+    <form
+      onSubmit={onSubmit}
+      className="flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 mb-5"
+    >
+      <div>
+        <label htmlFor="x">x</label>
+        <input
+          className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ml-4 border-black dark:bg-black dark:border-slate-200 border rounded-md px-2 py-1"
+          type="number"
+          name="x"
+          id="x"
+          step="any"
+          placeholder="0"
+          required
+          autoFocus
+        />
+      </div>
+      <div>
+        <label htmlFor="y">y</label>
+        <input
+          className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ml-4 border-black dark:bg-black dark:border-slate-200 border rounded-md px-2 py-1"
+          type="number"
+          name="y"
+          id="y"
+          step="any"
+          placeholder="0"
+          required
+        />
+      </div>
       <button
         type="submit"
         className="border-black dark:border-slate-200 border rounded-md px-2 py-1"
