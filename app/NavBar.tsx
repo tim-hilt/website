@@ -16,9 +16,9 @@ export function NavBar() {
     },
   ];
   return (
-    <nav className="flex pt-8 px-8 pb-4 text-xl">
+    <nav className="flex pt-8 md:px-8 px-4 pb-4 text-xl">
       <div className="grow">
-        <div className="flex w-28 justify-center">
+        <div className="flex w-28">
           <Link
             href="/"
             className="font-semibold transition duration-100 hover:scale-105"
