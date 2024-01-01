@@ -161,10 +161,10 @@ const globalStore = syncedStore({ points: [] as Array<Point> });
 
 // TODO: Refactor - Make everything based on server-actions,
 // run WebsocketProvider on server
-export default function Page({ params }: { params: { roomName: string } }) {
+export default function Page({ params }: { params: { chartName: string } }) {
   new WebsocketProvider(
     process.env.NEXT_PUBLIC_WEBSOCKET_SERVER as string,
-    params.roomName,
+    params.chartName,
     getYjsValue(globalStore) as any
   );
 

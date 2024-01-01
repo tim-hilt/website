@@ -16,13 +16,13 @@ export default function Page() {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    const roomName = encodeURIComponent(String(formData.get("room-name")));
-    if (!roomName) {
+    const chartName = encodeURIComponent(String(formData.get("chart-name")));
+    if (!chartName) {
       router.push(`/tools/collaborative-chart/${uuid}`);
       return;
     }
 
-    router.push(`/tools/collaborative-chart/${roomName}`);
+    router.push(`/tools/collaborative-chart/${chartName}`);
   };
 
   return (
@@ -35,13 +35,13 @@ export default function Page() {
       </p>
       <form onSubmit={createChart} className="md:mt-[15dvh] mt-[5dvh]">
         <div className="mb-[5dvh] flex items-center">
-          <label className="md:text-xl" htmlFor="room-name">
-            Room Name
+          <label className="md:text-xl" htmlFor="chart-name">
+            Chart Name
           </label>
           <input
             className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border-black dark:bg-black dark:border-slate-200 border rounded-md px-2 py-1 ml-4 grow md:text-xl"
-            name="room-name"
-            id="room-name"
+            name="chart-name"
+            id="chart-name"
             placeholder={uuid}
           />
         </div>
