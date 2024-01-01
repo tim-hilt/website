@@ -74,7 +74,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <header className="sticky top-0 bg-white dark:bg-black">
           <NavBar />
         </header>
-        <main className="grow p-8">
+        <main className="grow md:p-8 px-4 py-2">
           {children}
           <SpeedInsights />
         </main>
