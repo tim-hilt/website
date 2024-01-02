@@ -35,9 +35,6 @@ const codeStyle = {
   keepBackground: false,
 };
 
-/**
- * TODO: Add TOC in sidebar
- */
 export default function BlogLayout({
   params,
 }: {

@@ -4,96 +4,77 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export function LegacyNavBar() {
-  const pathname = usePathname();
-  const entries = [
-    {
-      path: "/blog",
-      title: "Blog",
-    },
-    {
-      path: "/about",
-      title: "About",
-    },
-  ];
-
-  return (
-    <nav className="flex pt-8 md:px-8 px-4 pb-4 text-xl">
-      <div className="grow">
-        <div className="flex w-28">
-          <Link
-            href="/"
-            className="font-semibold transition duration-100 hover:scale-105"
-          >
-            Tim Hilt
-          </Link>
-        </div>
-      </div>
-      <div className="flex">
-        {entries.map(({ path, title }) => {
-          const isPathname = path === pathname;
-          return (
-            <div
-              key={path}
-              className={`flex w-[4em] justify-center transition duration-100 hover:scale-105 ${
-                isPathname ? "font-medium" : "font-light"
-              }`}
-            >
-              <Link href={path}>{title}</Link>
-            </div>
-          );
-        })}
-        <div
-          key="tools"
-          className="flex w-[4em] justify-center transition duration-100 hover:scale-105 font-light"
-        >
-          <Link href={"/tools"}>Tools</Link>
-        </div>
-      </div>
-    </nav>
-  );
-}
-
 export default function NavBar() {
   const pathname = usePathname();
   return (
     <NavigationMenu.Root className="pt-8 md:px-8 px-4 pb-4 text-xl">
       <NavigationMenu.List className="flex">
         <NavigationMenu.Item className="grow">
-          <div className="flex">
-            <Link
-              href="/"
-              className="font-semibold transition duration-100 hover:scale-105"
-            >
-              Tim Hilt
+          <div className="flex w-20 font-semibold transition duration-100 hover:scale-105">
+            <Link href="/" legacyBehavior passHref>
+              <NavigationMenu.Link active={pathname === "/"}>
+                Tim Hilt
+              </NavigationMenu.Link>
             </Link>
           </div>
         </NavigationMenu.Item>
         <NavigationMenu.Item>
           <div
-            className={`flex w-16 transition duration-100 hover:scale-105 ${
+            className={`flex w-16 justify-center transition duration-100 hover:scale-105 ${
               pathname === "/blog" ? "font-medium" : "font-light"
             }`}
           >
-            <Link href="/blog">Blog</Link>
+            <Link href="/blog" legacyBehavior passHref>
+              <NavigationMenu.Link active={pathname === "/blog"}>
+                Blog
+              </NavigationMenu.Link>
+            </Link>
           </div>
         </NavigationMenu.Item>
         <NavigationMenu.Item>
-          <div
-            className={`flex w-16 transition duration-100 hover:scale-105 ${
-              pathname === "/tools" ? "font-medium" : "font-light"
-            }`}
-          >
-            <Link href="/tools">Tools</Link>
-          </div>
+          <NavigationMenu.Trigger>
+            <div
+              className={`flex justify-center w-16 transition duration-100 hover:scale-105 ${
+                pathname.startsWith("/tools") ? "font-medium" : "font-light"
+              }`}
+            >
+              <Link href="/tools" legacyBehavior passHref>
+                <NavigationMenu.Link active={pathname === "/tools"}>
+                  Tools
+                </NavigationMenu.Link>
+              </Link>
+            </div>
+          </NavigationMenu.Trigger>
+          <NavigationMenu.Content>
+            <ul>
+              <li>
+                <NavigationMenu.Link
+                  active={pathname === "/tools/collaborative-chart"}
+                  asChild
+                >
+                  <Link
+                    href="/tools/collaborative-chart"
+                    legacyBehavior
+                    passHref
+                  >
+                    <div>Collaborative Chart</div>
+                  </Link>
+                </NavigationMenu.Link>
+              </li>
+            </ul>
+          </NavigationMenu.Content>
         </NavigationMenu.Item>
         <NavigationMenu.Item>
           <div
-            className={`flex w-16 transition duration-100 hover:scale-105 ${
+            className={`flex w-16 transition justify-center duration-100 hover:scale-105 ${
               pathname === "/about" ? "font-medium" : "font-light"
             }`}
           >
-            <Link href="/about">About</Link>
+            <Link href="/about" legacyBehavior passHref>
+              <NavigationMenu.Link active={pathname === "/about"}>
+                About
+              </NavigationMenu.Link>
+            </Link>
           </div>
         </NavigationMenu.Item>
       </NavigationMenu.List>
