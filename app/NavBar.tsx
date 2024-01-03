@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 export default function NavBar() {
   const pathname = usePathname();
   return (
-    <NavigationMenu.Root className="pt-8 md:px-8 px-4 pb-4 text-xl">
+    <NavigationMenu.Root className="pt-4 md:pt-8 md:px-8 px-4 pb-4 text-xl">
       <NavigationMenu.List className="flex">
         <NavigationMenu.Item className="grow">
           <div className="flex w-20 font-semibold transition duration-100 hover:scale-105">

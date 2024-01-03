@@ -40,7 +40,7 @@ function Footer() {
   // TODO: Get SVG for Icons and render them inline instead of using
   // more dependencies
   return (
-    <footer className="flex justify-center space-x-5 p-8 text-slate-500 dark:text-slate-200">
+    <footer className="flex justify-center space-x-5 md:p-8 p-4 text-slate-500 dark:text-slate-200">
       <Link href="mailto:timhilt@live.de" target="_blank">
         <FontAwesomeIcon icon={faEnvelope} />
       </Link>
