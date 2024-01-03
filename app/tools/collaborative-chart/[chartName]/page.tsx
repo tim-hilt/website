@@ -3,7 +3,14 @@
 import { getYjsValue, syncedStore } from "@syncedstore/core";
 import { useSyncedStore } from "@syncedstore/react";
 import * as d3 from "d3";
-import { FormEvent, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  FormEvent,
+  Suspense,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { WebsocketProvider } from "y-websocket";
 
 export type Point = {
@@ -174,7 +181,9 @@ export default function Page({ params }: { params: { chartName: string } }) {
         {decodeURIComponent(params.chartName)}
       </h1>
       <CoordinatesForm />
-      <ScatterPlot points={store.points} />
+      <Suspense fallback={<p>Rendering Chart...</p>}>
+        <ScatterPlot points={store.points} />
+      </Suspense>
       <CoordinatesTable />
     </div>
   );

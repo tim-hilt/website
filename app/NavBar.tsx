@@ -45,6 +45,7 @@ export default function NavBar() {
               </Link>
             </div>
           </NavigationMenu.Trigger>
+          {/** TODO: Add styling */}
           <NavigationMenu.Content>
             <ul>
               <li>

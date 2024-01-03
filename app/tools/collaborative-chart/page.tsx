@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, Suspense, useEffect, useState } from "react";
 
 // TODO: Add Metdata
 
@@ -40,12 +40,14 @@ export default function Page() {
           <label className="md:text-xl" htmlFor="chart-name">
             Chart Name
           </label>
-          <input
-            className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border-black dark:bg-black dark:border-slate-200 border rounded-md px-2 py-1 ml-4 grow md:text-xl"
-            name="chart-name"
-            id="chart-name"
-            placeholder={uuid}
-          />
+          <Suspense fallback={<p>Load UUID...</p>}>
+            <input
+              className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border-black dark:bg-black dark:border-slate-200 border rounded-md px-2 py-1 ml-4 grow md:text-xl"
+              name="chart-name"
+              id="chart-name"
+              placeholder={uuid}
+            />
+          </Suspense>
         </div>
         <div className="flex">
           <button
