@@ -10,27 +10,29 @@ export const metadata = {
 };
 
 type PostMeta = {
+  filename: string;
   title: string;
   date: Date;
   description: string;
 };
 
-const PostCard = ({ title, date, description }: PostMeta) => {
+const PostCard = ({ filename, title, date, description }: PostMeta) => {
   return (
-    <div className="group relative">
-      <div className="group-hover: absolute -inset-0.5 rounded-lg dark:bg-amber-400 bg-amber-600 opacity-50 blur-md transition duration-200 group-hover:opacity-75"></div>
-      <div className="relative rounded-lg p-4 leading-none dark:bg-black bg-white">
-        <div className="mb-2 flex items-center">
-          <div className="mr-3 grow">{title}</div>
-          <div className="text-xs dark:text-slate-500 text-slate-700">
-            {date.toLocaleDateString()}
+    <li key={filename}>
+      <Link href={`/blog/${filename}`}>
+        <div className="rounded-md border dark:border-slate-500 hover:border-slate-400 transition duration-100 p-4 leading-none">
+          <div className="mb-2 flex">
+            <div className="mr-3 grow">{title}</div>
+            <div className="text-xs dark:text-slate-500 text-slate-700">
+              {date.toLocaleDateString()}
+            </div>
+          </div>
+          <div className="truncate text-sm dark:text-slate-500 text-slate-700">
+            {description}
           </div>
         </div>
-        <div className="truncate text-sm dark:text-slate-500 text-slate-700">
-          {description}
-        </div>
-      </div>
-    </div>
+      </Link>
+    </li>
   );
 };
 
@@ -55,14 +57,15 @@ export default async function Blog() {
   blogposts.sort((a, b) => +b.date - +a.date);
 
   return (
-    <ul className="flex flex-col space-y-8">
+    <ul className="flex flex-col space-y-3 md:space-y-8">
       {blogposts.map(({ filename, title, date, description }) => {
         return (
-          <li key={filename}>
-            <Link href={`/blog/${filename}`}>
-              <PostCard title={title} date={date} description={description} />
-            </Link>
-          </li>
+          <PostCard
+            filename={filename}
+            title={title}
+            date={date}
+            description={description}
+          />
         );
       })}
     </ul>
