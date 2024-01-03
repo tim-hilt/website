@@ -18,7 +18,7 @@ type PostMeta = {
 
 const PostCard = ({ filename, title, date, description }: PostMeta) => {
   return (
-    <li key={filename}>
+    <li>
       <Link href={`/blog/${filename}`}>
         <div className="rounded-md border dark:border-slate-500 hover:border-slate-400 transition duration-100 p-4 leading-none">
           <div className="mb-2 flex">
@@ -61,6 +61,7 @@ export default async function Blog() {
       {blogposts.map(({ filename, title, date, description }) => {
         return (
           <PostCard
+            key={filename}
             filename={filename}
             title={title}
             date={date}
