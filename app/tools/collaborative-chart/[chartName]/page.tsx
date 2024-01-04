@@ -3,14 +3,9 @@
 import { getYjsValue, syncedStore } from "@syncedstore/core";
 import { useSyncedStore } from "@syncedstore/react";
 import * as d3 from "d3";
-import {
-  FormEvent,
-  Suspense,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { Axis, Orient } from "d3-axis-for-react";
+import { FormEvent, Suspense } from "react";
+import useMeasure from "react-use-measure";
 import { WebsocketProvider } from "y-websocket";
 
 export type Point = {
@@ -18,35 +13,8 @@ export type Point = {
   y: number;
 };
 
-const useDimensions = (targetRef: React.RefObject<HTMLDivElement>) => {
-  const getDimensions = () => {
-    return {
-      width: targetRef.current ? targetRef.current.offsetWidth : 0,
-      height: targetRef.current ? targetRef.current.offsetHeight : 0,
-    };
-  };
-
-  const [dimensions, setDimensions] = useState(getDimensions);
-
-  const handleResize = () => {
-    setDimensions(getDimensions());
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useLayoutEffect(() => {
-    handleResize();
-  }, []);
-
-  return dimensions;
-};
-
 function ScatterPlot({ points }: { points: Array<Point> }) {
-  const scatterPlotContainer = useRef(null);
-  const { width, height } = useDimensions(scatterPlotContainer);
+  const [ref, { width, height }] = useMeasure();
 
   const marginTop = 20;
   const marginRight = 40;
@@ -58,20 +26,15 @@ function ScatterPlot({ points }: { points: Array<Point> }) {
   const [minY, maxY] = d3.extent(points, (p) => p.y) as [number, number];
   const y = d3.scaleLinear([minY, maxY], [height - marginBottom, marginTop]);
 
-  const gx = useRef(null);
-  const gy = useRef(null);
-
-  // TODO: Render axis without useEffect
-  // @ts-ignore
-  useEffect(() => void d3.select(gx.current).call(d3.axisBottom(x)), [gx, x]);
-  // @ts-ignore
-  useEffect(() => void d3.select(gy.current).call(d3.axisLeft(y)), [gy, y]);
-
   return (
-    <div ref={scatterPlotContainer} className="w-full md:h-[50dvh] h-[40dvh]">
+    <div ref={ref} className="w-full md:h-[50dvh] h-[40dvh]">
       <svg width={width} height={height}>
-        <g ref={gx} transform={`translate(0,${height - marginBottom})`} />
-        <g ref={gy} transform={`translate(${marginLeft},0)`} />
+        <g transform={`translate(0, ${height - marginBottom})`}>
+          <Axis scale={x} orient={Orient.bottom} />
+        </g>
+        <g transform={`translate(${marginLeft},0)`}>
+          <Axis scale={y} orient={Orient.left} />
+        </g>
         <g fill="white" stroke="currentColor" strokeWidth="1.5">
           {points.map((p, i) => (
             <circle key={i} cx={x(p.x)} cy={y(p.y)} r="2.5" />

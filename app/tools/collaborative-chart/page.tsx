@@ -40,12 +40,13 @@ export default function Page() {
           <label className="md:text-xl" htmlFor="chart-name">
             Chart Name
           </label>
-          <Suspense fallback={<p>Load UUID...</p>}>
+          <Suspense fallback={<p>Loading UUID...</p>}>
             <input
               className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border-black dark:bg-black dark:border-slate-200 border rounded-md px-2 py-1 ml-4 grow md:text-xl"
               name="chart-name"
               id="chart-name"
               placeholder={uuid}
+              autoFocus
             />
           </Suspense>
         </div>
