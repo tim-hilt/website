@@ -6,6 +6,9 @@ const nextConfig = {
   experimental: {
     mdxRs: true,
   },
+  experimental: {
+    ppr: true,
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.mjs$/,
