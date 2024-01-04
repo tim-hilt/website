@@ -20,12 +20,15 @@ export default function NavBar() {
         </NavigationMenu.Item>
         <NavigationMenu.Item>
           <div
-            className={`flex w-16 justify-center transition duration-100 hover:scale-105 ${
-              pathname === "/blog" ? "font-medium" : "font-light"
-            }`}
+            className={
+              "flex w-16 justify-center transition duration-100 hover:scale-105"
+            }
           >
             <Link href="/blog" legacyBehavior passHref>
-              <NavigationMenu.Link active={pathname === "/blog"}>
+              <NavigationMenu.Link
+                active={pathname === "/blog"}
+                className="data-[active]:font-medium font-light"
+              >
                 Blog
               </NavigationMenu.Link>
             </Link>
@@ -34,12 +37,15 @@ export default function NavBar() {
         <NavigationMenu.Item>
           <NavigationMenu.Trigger>
             <div
-              className={`flex justify-center w-16 transition duration-100 hover:scale-105 ${
-                pathname.startsWith("/tools") ? "font-medium" : "font-light"
-              }`}
+              className={
+                "flex justify-center w-16 transition duration-100 hover:scale-105"
+              }
             >
               <Link href="/tools" legacyBehavior passHref>
-                <NavigationMenu.Link active={pathname === "/tools"}>
+                <NavigationMenu.Link
+                  active={pathname === "/tools"}
+                  className="data-[active]:font-medium font-light"
+                >
                   Tools
                 </NavigationMenu.Link>
               </Link>
@@ -51,6 +57,7 @@ export default function NavBar() {
               <li>
                 <NavigationMenu.Link
                   active={pathname === "/tools/collaborative-chart"}
+                  className="data-[active]:font-medium font-light"
                   asChild
                 >
                   <Link
@@ -67,12 +74,15 @@ export default function NavBar() {
         </NavigationMenu.Item>
         <NavigationMenu.Item>
           <div
-            className={`flex w-16 transition justify-center duration-100 hover:scale-105 ${
-              pathname === "/about" ? "font-medium" : "font-light"
-            }`}
+            className={
+              "flex w-16 transition justify-center duration-100 hover:scale-105"
+            }
           >
             <Link href="/about" legacyBehavior passHref>
-              <NavigationMenu.Link active={pathname === "/about"}>
+              <NavigationMenu.Link
+                active={pathname === "/about"}
+                className="data-[active]:font-medium font-light"
+              >
                 About
               </NavigationMenu.Link>
             </Link>
