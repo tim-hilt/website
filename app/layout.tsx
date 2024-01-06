@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { JetBrains_Mono, Open_Sans } from "next/font/google";
 import Link from "next/link";
 import type { PropsWithChildren } from "react";
-import NavBar from "./NavBar";
+import NavBar from "./nav-bar";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
