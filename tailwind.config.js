@@ -11,6 +11,20 @@ module.exports = {
         sans: ["var(--font-sans)"],
         mono: ["var(--font-mono)"],
       },
+      keyframes: {
+        fadeIn: {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+        fadeOut: {
+          from: { opacity: 1 },
+          to: { opacity: 0 },
+        },
+      },
+      animation: {
+        fadeIn: "fadeIn 300ms ease",
+        fadeOut: "fadeOut 300ms ease",
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],

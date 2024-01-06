@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 export default function NavBar() {
   const pathname = usePathname();
   return (
-    <NavigationMenu.Root className="pt-4 md:pt-8 md:px-8 px-4 pb-4 text-xl">
+    <NavigationMenu.Root className="px-4 pb-4 pt-4 text-xl md:px-8 md:pt-8">
       <NavigationMenu.List className="flex">
         <NavigationMenu.Item className="grow">
           <div className="flex w-20 font-semibold transition duration-100 hover:scale-105">
@@ -27,37 +27,29 @@ export default function NavBar() {
             <Link href="/blog" legacyBehavior passHref>
               <NavigationMenu.Link
                 active={pathname === "/blog"}
-                className="data-[active]:font-medium font-light"
+                className="font-light data-[active]:font-medium"
               >
                 Blog
               </NavigationMenu.Link>
             </Link>
           </div>
         </NavigationMenu.Item>
-        <NavigationMenu.Item>
+        <NavigationMenu.Item className="relative flex justify-center">
           <NavigationMenu.Trigger>
             <div
-              className={
-                "flex justify-center w-16 transition duration-100 hover:scale-105"
-              }
+              className={`flex w-16 justify-center transition duration-100 hover:scale-105 ${
+                pathname.startsWith("/tools") ? "font-medium" : "font-light"
+              }`}
             >
-              <Link href="/tools" legacyBehavior passHref>
-                <NavigationMenu.Link
-                  active={pathname === "/tools"}
-                  className="data-[active]:font-medium font-light"
-                >
-                  Tools
-                </NavigationMenu.Link>
-              </Link>
+              Tools
             </div>
           </NavigationMenu.Trigger>
-          {/** TODO: Add styling */}
-          <NavigationMenu.Content>
-            <ul>
+          <NavigationMenu.Content className="data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut absolute mt-2 translate-y-1/2 text-nowrap rounded-md border border-black bg-white dark:border-white dark:bg-black">
+            <ul className="p-4 text-base">
               <li>
                 <NavigationMenu.Link
                   active={pathname === "/tools/collaborative-chart"}
-                  className="data-[active]:font-medium font-light"
+                  className=""
                   asChild
                 >
                   <Link
@@ -65,7 +57,7 @@ export default function NavBar() {
                     legacyBehavior
                     passHref
                   >
-                    <div>Collaborative Chart</div>
+                    Collaborative Chart
                   </Link>
                 </NavigationMenu.Link>
               </li>
@@ -75,13 +67,13 @@ export default function NavBar() {
         <NavigationMenu.Item>
           <div
             className={
-              "flex w-16 transition justify-center duration-100 hover:scale-105"
+              "flex w-16 justify-center transition duration-100 hover:scale-105"
             }
           >
             <Link href="/about" legacyBehavior passHref>
               <NavigationMenu.Link
                 active={pathname === "/about"}
-                className="data-[active]:font-medium font-light"
+                className="font-light data-[active]:font-medium"
               >
                 About
               </NavigationMenu.Link>
