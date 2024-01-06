@@ -28,21 +28,21 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-col md:w-[60vw] mx-auto">
+    <div className="mx-auto flex flex-col md:w-[60vw]">
       <p className="text-justify">
         Enter a chart name or just click on &quot;Create New Chart&quot; without
         inputting something. If no input is given, the presented default value,
         which is a randomly generated UUID will be used to create the chart. You
         can also use this option if you want to add a level of security
       </p>
-      <form onSubmit={createChart} className="md:mt-[15dvh] mt-[5dvh]">
+      <form onSubmit={createChart} className="mt-[5dvh] md:mt-[15dvh]">
         <div className="mb-[5dvh] flex items-center">
           <label className="md:text-xl" htmlFor="chart-name">
             Chart Name
           </label>
           <Suspense fallback={<p>Loading UUID...</p>}>
             <input
-              className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border-black dark:bg-black dark:border-slate-200 border rounded-md px-2 py-1 ml-4 grow md:text-xl"
+              className="ml-4 grow rounded-md border border-black px-2 py-1 [appearance:textfield] md:text-xl dark:border-gray-200 dark:bg-black [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               name="chart-name"
               id="chart-name"
               placeholder={uuid}
@@ -52,7 +52,7 @@ export default function Page() {
         </div>
         <div className="flex">
           <button
-            className="mx-auto border dark:border-slate-200 border-black rounded-md md:p-4 p-2 md:text-2xl text-xl"
+            className="mx-auto rounded-md border border-black p-2 text-xl md:p-4 md:text-2xl dark:border-gray-200"
             type="submit"
           >
             Create New Chart

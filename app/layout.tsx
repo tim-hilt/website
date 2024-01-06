@@ -40,7 +40,7 @@ function Footer() {
   // TODO: Get SVG for Icons and render them inline instead of using
   // more dependencies
   return (
-    <footer className="flex justify-center space-x-5 md:p-8 p-4 text-slate-500 dark:text-slate-200">
+    <footer className="flex justify-center space-x-5 p-4 text-gray-500 md:p-8 dark:text-gray-200">
       <Link href="mailto:timhilt@live.de" target="_blank">
         <FontAwesomeIcon icon={faEnvelope} />
       </Link>
@@ -72,11 +72,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
       lang="en"
       className={`${font_sans.variable} ${font_mono.variable} antialiased`}
     >
-      <body className="flex min-h-[100dvh] flex-col dark:bg-black dark:text-slate-50">
+      <body className="flex min-h-[100dvh] flex-col dark:bg-black dark:text-gray-50">
         <header className="sticky top-0 bg-white dark:bg-black">
           <NavBar />
         </header>
-        <main className="grow md:p-8 px-4 py-2">
+        <main className="grow px-4 py-2 md:p-8">
           {children}
           <SpeedInsights />
         </main>

@@ -16,14 +16,12 @@ const Header = ({ title, date, description }: Frontmatter) => (
       <h1 className="mb-8 flex justify-center text-center text-4xl sm:text-6xl">
         {title}
       </h1>
-      <div className="text-xs dark:text-slate-500 text-slate-600">
+      <div className="text-xs text-gray-600 dark:text-gray-500">
         {date.toLocaleDateString()}
       </div>
-      <div className="py-3 dark:text-slate-500 text-slate-600">
-        {description}
-      </div>
+      <div className="py-3 text-gray-600 dark:text-gray-500">{description}</div>
     </div>
-    <hr className="mb-10 mt-3 dark:border-slate-500 text-slate-600" />
+    <hr className="mb-10 mt-3 text-gray-600 dark:border-gray-500" />
   </div>
 );
 
@@ -41,7 +39,7 @@ export default function BlogLayout({
   params: { article: string };
 }) {
   const content = fs.readFileSync(
-    path.join("app", "blog", "[article]", "articles", params.article + ".mdx")
+    path.join("app", "blog", "[article]", "articles", params.article + ".mdx"),
   );
   const { content: markdown, data: frontmatter } = matter(content);
   return (
@@ -73,7 +71,7 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { article: string } }) {
   const content = fs.readFileSync(
-    path.join("app", "blog", "[article]", "articles", params.article + ".mdx")
+    path.join("app", "blog", "[article]", "articles", params.article + ".mdx"),
   );
   const { data: frontmatter } = matter(content);
   return {

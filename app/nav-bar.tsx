@@ -42,7 +42,7 @@ export default function NavBar() {
           >
             Tools
           </NavigationMenu.Trigger>
-          <NavigationMenu.Content className="data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut absolute mt-2 translate-y-1/2 text-nowrap rounded-md border border-black bg-white dark:border-white dark:bg-black">
+          <NavigationMenu.Content className="data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut absolute mt-2 translate-y-1/2 whitespace-nowrap rounded-md border border-black bg-white dark:border-white dark:bg-black">
             <ul className="p-4 text-base">
               <li>
                 <Link href="/tools/collaborative-chart" legacyBehavior passHref>

@@ -20,14 +20,14 @@ const PostCard = ({ filename, title, date, description }: PostMeta) => {
   return (
     <li>
       <Link href={`/blog/${filename}`}>
-        <div className="rounded-md border dark:border-slate-500 hover:border-slate-400 transition duration-100 p-4 leading-none">
+        <div className="rounded-md border p-4 leading-none transition duration-100 hover:border-gray-400 dark:border-gray-500">
           <div className="mb-2 flex justify-between">
             <div className="mr-3">{title}</div>
-            <div className="text-xs dark:text-slate-500 text-slate-700">
+            <div className="text-xs text-gray-700 dark:text-gray-500">
               {date.toLocaleDateString()}
             </div>
           </div>
-          <div className="truncate text-sm dark:text-slate-500 text-slate-700">
+          <div className="truncate text-sm text-gray-700 dark:text-gray-500">
             {description}
           </div>
         </div>
@@ -42,7 +42,7 @@ export default async function Blog() {
     .filter((fn) => fn.endsWith(".mdx"))
     .map((fn) => {
       const file = fs.readFileSync(
-        path.join("app", "blog", "[article]", "articles", fn)
+        path.join("app", "blog", "[article]", "articles", fn),
       );
       const {
         data: { title, date, description },

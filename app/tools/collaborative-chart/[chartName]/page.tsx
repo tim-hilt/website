@@ -27,7 +27,7 @@ function ScatterPlot({ points }: { points: Array<Point> }) {
   const y = d3.scaleLinear([minY, maxY], [height - marginBottom, marginTop]);
 
   return (
-    <div ref={ref} className="w-full md:h-[50dvh] h-[40dvh]">
+    <div ref={ref} className="h-[40dvh] w-full md:h-[50dvh]">
       <svg width={width} height={height}>
         <g transform={`translate(0, ${height - marginBottom})`}>
           <Axis scale={x} orient={Orient.bottom} />
@@ -62,12 +62,12 @@ function CoordinatesForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 md:mb-5"
+      className="flex flex-col space-y-3 md:mb-5 md:flex-row md:space-x-5 md:space-y-0"
     >
       <div>
         <label htmlFor="x">x</label>
         <input
-          className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ml-4 border-black dark:bg-black dark:border-slate-200 border rounded-md px-2 py-1"
+          className="ml-4 rounded-md border border-black px-2 py-1 [appearance:textfield] dark:border-gray-200 dark:bg-black [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           type="number"
           name="x"
           id="x"
@@ -80,7 +80,7 @@ function CoordinatesForm() {
       <div>
         <label htmlFor="y">y</label>
         <input
-          className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ml-4 border-black dark:bg-black dark:border-slate-200 border rounded-md px-2 py-1"
+          className="ml-4 rounded-md border border-black px-2 py-1 [appearance:textfield] dark:border-gray-200 dark:bg-black [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           type="number"
           name="y"
           id="y"
@@ -91,7 +91,7 @@ function CoordinatesForm() {
       </div>
       <button
         type="submit"
-        className="border-black dark:border-slate-200 border rounded-md px-2 py-1"
+        className="rounded-md border border-black px-2 py-1 dark:border-gray-200"
       >
         Add Coordinate
       </button>
@@ -115,7 +115,7 @@ function CoordinatesTable() {
             <td className="p-2">
               <button
                 onClick={() => deleteElem(i)}
-                className="border-black dark:border-slate-200 dark:text-slate-200 rounded-md border px-2 py-1"
+                className="rounded-md border border-black px-2 py-1 dark:border-gray-200 dark:text-gray-200"
               >
                 Delete
               </button>
@@ -133,13 +133,13 @@ export default function Page({ params }: { params: { chartName: string } }) {
   new WebsocketProvider(
     process.env.NEXT_PUBLIC_WEBSOCKET_SERVER as string,
     params.chartName,
-    getYjsValue(globalStore) as any
+    getYjsValue(globalStore) as any,
   );
 
   const store = useSyncedStore(globalStore);
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col items-center justify-center">
       <h1 className="mb-4 md:text-xl">
         {decodeURIComponent(params.chartName)}
       </h1>
