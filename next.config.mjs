@@ -7,7 +7,7 @@ const nextConfig = {
     mdxRs: true,
   },
   experimental: {
-    ppr: true,
+    ppr: false,
   },
   webpack: (config) => {
     config.module.rules.push({
