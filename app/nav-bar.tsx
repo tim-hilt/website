@@ -35,31 +35,24 @@ export default function NavBar() {
           </div>
         </NavigationMenu.Item>
         <NavigationMenu.Item className="relative flex justify-center">
-          <NavigationMenu.Trigger>
-            <div
-              className={`flex w-16 justify-center transition duration-100 hover:scale-105 ${
-                pathname.startsWith("/tools") ? "font-medium" : "font-light"
-              }`}
-            >
-              Tools
-            </div>
+          <NavigationMenu.Trigger
+            className={`flex w-16 justify-center transition duration-100 hover:scale-105 data-[state=open]:scale-105 ${
+              pathname.startsWith("/tools") ? "font-medium" : "font-light"
+            }`}
+          >
+            Tools
           </NavigationMenu.Trigger>
           <NavigationMenu.Content className="data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut absolute mt-2 translate-y-1/2 text-nowrap rounded-md border border-black bg-white dark:border-white dark:bg-black">
             <ul className="p-4 text-base">
               <li>
-                <NavigationMenu.Link
-                  active={pathname === "/tools/collaborative-chart"}
-                  className=""
-                  asChild
-                >
-                  <Link
-                    href="/tools/collaborative-chart"
-                    legacyBehavior
-                    passHref
+                <Link href="/tools/collaborative-chart" legacyBehavior passHref>
+                  <NavigationMenu.Link
+                    active={pathname === "/tools/collaborative-chart"}
+                    className="flex font-light transition duration-100 hover:scale-105 data-[active]:font-medium"
                   >
                     Collaborative Chart
-                  </Link>
-                </NavigationMenu.Link>
+                  </NavigationMenu.Link>
+                </Link>
               </li>
             </ul>
           </NavigationMenu.Content>
