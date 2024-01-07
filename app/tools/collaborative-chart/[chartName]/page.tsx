@@ -7,6 +7,7 @@ import { Axis, Orient } from "d3-axis-for-react";
 import { FormEvent, Suspense } from "react";
 import useMeasure from "react-use-measure";
 import { WebsocketProvider } from "y-websocket";
+import * as Form from "@radix-ui/react-form";
 
 export type Point = {
   x: number;
@@ -60,42 +61,41 @@ function CoordinatesForm() {
   }
 
   return (
-    <form
+    <Form.Root
       onSubmit={onSubmit}
       className="flex flex-col space-y-3 md:mb-5 md:flex-row md:space-x-5 md:space-y-0"
     >
-      <div>
-        <label htmlFor="x">x</label>
-        <input
-          className="ml-4 rounded-md border border-black px-2 py-1 [appearance:textfield] dark:border-gray-200 dark:bg-black [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-          type="number"
-          name="x"
-          id="x"
-          step="any"
-          placeholder="0"
-          required
-          autoFocus
-        />
-      </div>
-      <div>
-        <label htmlFor="y">y</label>
-        <input
-          className="ml-4 rounded-md border border-black px-2 py-1 [appearance:textfield] dark:border-gray-200 dark:bg-black [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-          type="number"
-          name="y"
-          id="y"
-          step="any"
-          placeholder="0"
-          required
-        />
-      </div>
-      <button
-        type="submit"
-        className="rounded-md border border-black px-2 py-1 dark:border-gray-200"
-      >
-        Add Coordinate
-      </button>
-    </form>
+      <Form.Field name="x">
+        <Form.Label>x</Form.Label>
+        <Form.Control asChild>
+          <input
+            className="ml-4 rounded-md border border-black px-2 py-1 [appearance:textfield] dark:border-gray-200 dark:bg-black [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+            type="number"
+            step="any"
+            placeholder="0"
+            required
+            autoFocus
+          />
+        </Form.Control>
+      </Form.Field>
+      <Form.Field name="y">
+        <Form.Label>y</Form.Label>
+        <Form.Control asChild>
+          <input
+            className="ml-4 rounded-md border border-black px-2 py-1 [appearance:textfield] dark:border-gray-200 dark:bg-black [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+            type="number"
+            step="any"
+            placeholder="0"
+            required
+          />
+        </Form.Control>
+      </Form.Field>
+      <Form.Submit asChild>
+        <button className="rounded-md border border-black px-2 py-1 dark:border-gray-200">
+          Add Coordinate
+        </button>
+      </Form.Submit>
+    </Form.Root>
   );
 }
 

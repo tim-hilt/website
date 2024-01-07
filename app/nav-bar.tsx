@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 export default function NavBar() {
   const pathname = usePathname();
   return (
-    <NavigationMenu.Root className="px-4 pb-4 pt-4 text-xl md:px-8 md:pt-8">
+    <NavigationMenu.Root className="border-b px-4 pb-4 pt-4 text-xl md:px-8 md:pt-8 dark:border-gray-800">
       <NavigationMenu.List className="flex">
         <NavigationMenu.Item className="grow">
           <div className="flex w-20 font-semibold transition duration-100 hover:scale-105">
@@ -42,7 +42,7 @@ export default function NavBar() {
           >
             Tools
           </NavigationMenu.Trigger>
-          <NavigationMenu.Content className="data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut absolute mt-2 translate-y-1/2 whitespace-nowrap rounded-md border border-black bg-white dark:border-white dark:bg-black">
+          <NavigationMenu.Content className="data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut absolute mt-2 translate-y-1/2 whitespace-nowrap rounded-md border-[0.3px] border-gray-800 bg-white dark:border-gray-400 dark:bg-black">
             <ul className="p-4 text-base">
               <li>
                 <Link href="/tools/collaborative-chart" legacyBehavior passHref>
