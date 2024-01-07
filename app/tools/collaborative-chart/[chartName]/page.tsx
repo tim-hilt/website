@@ -36,7 +36,12 @@ function ScatterPlot({ points }: { points: Array<Point> }) {
         <g transform={`translate(${marginLeft},0)`}>
           <Axis scale={y} orient={Orient.left} />
         </g>
-        <g fill="white" stroke="currentColor" strokeWidth="1.5">
+        <g
+          fill="white"
+          className="fill-white stroke-black stroke-[0.8] dark:fill-black dark:stroke-white"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        >
           {points.map((p, i) => (
             <circle key={i} cx={x(p.x)} cy={y(p.y)} r="2.5" />
           ))}
