@@ -1,20 +1,16 @@
 "use client";
 
-import { getYjsValue, syncedStore } from "@syncedstore/core";
-import { useSyncedStore } from "@syncedstore/react";
 import * as d3 from "d3";
 import { Axis, Orient } from "d3-axis-for-react";
-import { FormEvent, Suspense } from "react";
+import { FormEvent, ReactNode } from "react";
 import useMeasure from "react-use-measure";
-import { WebsocketProvider } from "y-websocket";
 import * as Form from "@radix-ui/react-form";
+import { RoomProvider, useMutation, useStorage } from "@/liveblocks.config";
+import { LiveList, LiveObject } from "@liveblocks/client";
+import { ClientSideSuspense } from "@liveblocks/react";
+import { Point } from "@/app/types/point";
 
-export type Point = {
-  x: number;
-  y: number;
-};
-
-function ScatterPlot({ points }: { points: Array<Point> }) {
+function ScatterPlot({ points }: { points: Readonly<Array<Point>> }) {
   const [ref, { width, height }] = useMeasure();
 
   const marginTop = 20;
@@ -52,7 +48,9 @@ function ScatterPlot({ points }: { points: Array<Point> }) {
 }
 
 function CoordinatesForm() {
-  const store = useSyncedStore(globalStore);
+  const addPoint = useMutation(({ storage }, x, y) => {
+    storage.get("points").push(new LiveObject({ x, y }));
+  }, []);
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -60,9 +58,8 @@ function CoordinatesForm() {
 
     const x = Number(formData.get("x"));
     const y = Number(formData.get("y"));
-    const p: Point = { x, y };
 
-    store.points.push(p);
+    addPoint(x, y);
   }
 
   return (
@@ -105,21 +102,20 @@ function CoordinatesForm() {
 }
 
 function CoordinatesTable() {
-  const store = useSyncedStore(globalStore);
-
-  const deleteElem = (i: number) => {
-    store.points.splice(i, 1);
-  };
+  const points = useStorage((root) => root.points);
+  const deletePoint = useMutation(({ storage }, i) => {
+    storage.get("points").delete(i);
+  }, []);
 
   return (
     <table className="mt-5">
       <tbody>
-        {store.points?.map((p, i) => (
+        {points?.map((p, i) => (
           <tr key={`${i}-${p.x}-${p.y}`}>
             <td className="p-2">{`(${p.x}, ${p.y})`}</td>
             <td className="p-2">
               <button
-                onClick={() => deleteElem(i)}
+                onClick={() => deletePoint(i)}
                 className="rounded-md border border-black px-2 py-1 dark:border-gray-200 dark:text-gray-200"
               >
                 Delete
@@ -132,27 +128,42 @@ function CoordinatesTable() {
   );
 }
 
-const globalStore = syncedStore({ points: [] as Array<Point> });
-
-export default function Page({ params }: { params: { chartName: string } }) {
-  new WebsocketProvider(
-    process.env.NEXT_PUBLIC_WEBSOCKET_SERVER as string,
-    params.chartName,
-    getYjsValue(globalStore) as any,
+function Room({
+  chartName,
+  children,
+}: {
+  chartName: string;
+  children: ReactNode;
+}) {
+  return (
+    <RoomProvider
+      id={chartName}
+      initialStorage={{ points: new LiveList() }}
+      initialPresence={{}}
+    >
+      <ClientSideSuspense fallback={<p>Loading...</p>}>
+        {() => children}
+      </ClientSideSuspense>
+    </RoomProvider>
   );
+}
 
-  const store = useSyncedStore(globalStore);
-
+function Proxy({ chartName }: { chartName: string }) {
+  const points = useStorage((root) => root.points);
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="mb-4 md:text-xl">
-        {decodeURIComponent(params.chartName)}
-      </h1>
+      <h1 className="mb-4 md:text-xl">{decodeURIComponent(chartName)}</h1>
       <CoordinatesForm />
-      <Suspense fallback={<p>Rendering Chart...</p>}>
-        <ScatterPlot points={store.points} />
-      </Suspense>
+      <ScatterPlot points={points} />
       <CoordinatesTable />
     </div>
+  );
+}
+
+export default function Page({ params }: { params: { chartName: string } }) {
+  return (
+    <Room chartName={params.chartName}>
+      <Proxy chartName={params.chartName} />
+    </Room>
   );
 }
