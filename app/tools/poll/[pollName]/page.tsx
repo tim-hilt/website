@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent, type ReactNode, useEffect } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import * as Checkbox from "@radix-ui/react-checkbox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -21,15 +21,8 @@ function Room({
   roomName: string;
   children: ReactNode;
 }) {
-  const [name, setName] = useState("");
-
-  useEffect(() => {
-    const n = localStorage.getItem("user-name");
-
-    if (n) {
-      setName(n);
-    }
-  }, []);
+  const n = localStorage.getItem("user-name");
+  const [name, setName] = useState(n || "");
 
   const updateName = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -55,7 +48,7 @@ function Room({
           </ClientSideSuspense>
         </RoomProvider>
       )}
-      {!name /* This still flashes up, even if name is in localStorage */ && (
+      {!name && (
         <Form.Root onSubmit={updateName} className="mt-[5dvh] md:mt-[15dvh]">
           <Form.Field name="user-name" className="mb-[5dvh] flex items-center">
             <Form.Label className="md:text-xl">Enter Name</Form.Label>
@@ -154,7 +147,7 @@ function Poll({ pollName }: { pollName: string }) {
           </button>
         </Form.Submit>
       </Form.Root>
-      <table className="table-fixed border-separate border-spacing-3">
+      <table className="w-full table-fixed border-separate border-spacing-3">
         <tbody>
           {options
             ?.toSorted((a, b) => a.name.localeCompare(b.name))
@@ -175,16 +168,17 @@ function Poll({ pollName }: { pollName: string }) {
                   </Checkbox.Root>
                 </td>
                 <td className="w-1/3" align="center">
-                  <div className="flex items-center space-x-2">
+                  <div
+                    className="flex items-center space-x-2"
+                    title={option.checkedBy.join(", ")}
+                  >
                     {option.checkedBy.length > 0 && (
                       <>
                         <p className="font-bold">
                           {`${option.checkedBy.length}:`}
                         </p>
-                        <p className="font-light">
-                          {option.checkedBy
-                            .map((n) => n === name && "Me")
-                            .join(", ")}
+                        <p className="truncate font-light">
+                          {option.checkedBy.join(", ")}
                         </p>
                       </>
                     )}
