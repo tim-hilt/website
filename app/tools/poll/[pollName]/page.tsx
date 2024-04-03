@@ -127,7 +127,7 @@ function Poll({ pollName }: { pollName: string }) {
   };
 
   const getVoters = (): Array<string> => {
-    const voters = new Set();
+    const voters = new Set<string>();
 
     for (const o of options) {
       for (const n of o.checkedBy) {
@@ -145,12 +145,13 @@ function Poll({ pollName }: { pollName: string }) {
           {decodeURIComponent(pollName)}
         </h1>
         <div className="flex space-x-1 truncate sm:w-1/3 sm:justify-end">
-          <p className="font-semibold">Online Users:</p>
-          <p className="font-light">{`${name}${
-            others.length > 0
-              ? ", " + others.map((o) => o.presence.name).join(", ")
-              : ""
-          }`}</p>
+          {/* TODO: Replace title with Tooltip-Component */}
+          <p
+            className="font-light"
+            title={others.map((o) => o.presence.name).join(", ")}
+          >
+            {others.length} other users online
+          </p>
         </div>
       </div>
       <Form.Root className="flex items-center space-x-4" onSubmit={onSubmit}>
@@ -220,7 +221,7 @@ function Poll({ pollName }: { pollName: string }) {
           ))}
         </tbody>
       </table>
-      <h2 className="text-xl">Users that voted</h2>
+      <h2 className="text-xl">All Voters</h2>
       <ul>
         {getVoters().map((v) => (
           <li className="ml-8 list-disc" key={v}>
