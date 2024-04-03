@@ -126,6 +126,18 @@ function Poll({ pollName }: { pollName: string }) {
     removeNameFromCheckedBy(optionId);
   };
 
+  const getVoters = (): Array<string> => {
+    const voters = new Set();
+
+    for (const o of options) {
+      for (const n of o.checkedBy) {
+        voters.add(n);
+      }
+    }
+
+    return Array.from(voters).toSorted();
+  };
+
   return (
     <div className="flex flex-col space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center">
@@ -161,53 +173,61 @@ function Poll({ pollName }: { pollName: string }) {
       </Form.Root>
       <table className="w-full table-fixed border-separate border-spacing-3">
         <tbody>
-          {options
-            ?.toSorted((a, b) => a.name.localeCompare(b.name))
-            .map((option) => (
-              <tr key={option.id}>
-                <td>{option.name}</td>
-                <td className="w-10" align="center">
-                  <Checkbox.Root
-                    defaultChecked={option.checkedBy.includes(name!)}
-                    onCheckedChange={(checked: boolean | "indeterminate") =>
-                      onCheckedChange(checked, option.id)
-                    }
-                    className="flex h-[25px] w-[25px] appearance-none items-center justify-center rounded border border-black p-1 outline-none dark:border-white"
-                  >
-                    <Checkbox.Indicator>
-                      <FontAwesomeIcon icon={faCheck} />
-                    </Checkbox.Indicator>
-                  </Checkbox.Root>
-                </td>
-                <td className="w-1/3" align="center">
-                  <div
-                    className="flex items-center space-x-2"
-                    title={option.checkedBy.join(", ")}
-                  >
-                    {option.checkedBy.length > 0 && (
-                      <>
-                        <p className="font-bold">
-                          {`${option.checkedBy.length}:`}
-                        </p>
-                        <p className="truncate font-light">
-                          {option.checkedBy.join(", ")}
-                        </p>
-                      </>
-                    )}
-                  </div>
-                </td>
-                <td className="w-6" align="center">
-                  <button
-                    className="rounded border border-black p-2 dark:border-white"
-                    onClick={() => deleteOption(option.id)}
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                  </button>
-                </td>
-              </tr>
-            ))}
+          {options.map((option) => (
+            /* TODO: Include dndkit for custom sorting */
+            <tr key={option.id}>
+              <td>{option.name}</td>
+              <td className="w-10" align="center">
+                <Checkbox.Root
+                  defaultChecked={option.checkedBy.includes(name!)}
+                  onCheckedChange={(checked: boolean | "indeterminate") =>
+                    onCheckedChange(checked, option.id)
+                  }
+                  className="flex h-[25px] w-[25px] appearance-none items-center justify-center rounded border border-black p-1 outline-none dark:border-white"
+                >
+                  <Checkbox.Indicator>
+                    <FontAwesomeIcon icon={faCheck} />
+                  </Checkbox.Indicator>
+                </Checkbox.Root>
+              </td>
+              <td className="w-1/3" align="center">
+                <div
+                  className="flex items-center space-x-2"
+                  // TODO: Replace title with Tooltip-Component
+                  title={option.checkedBy.join(", ")}
+                >
+                  {option.checkedBy.length > 0 && (
+                    <>
+                      <p className="font-bold">
+                        {`${option.checkedBy.length}:`}
+                      </p>
+                      <p className="truncate font-light">
+                        {option.checkedBy.join(", ")}
+                      </p>
+                    </>
+                  )}
+                </div>
+              </td>
+              <td className="w-6" align="center">
+                <button
+                  className="rounded border border-black p-2 dark:border-white"
+                  onClick={() => deleteOption(option.id)}
+                >
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
+      <h2 className="text-xl">Users that voted</h2>
+      <ul>
+        {getVoters().map((v) => (
+          <li className="ml-8 list-disc" key={v}>
+            {v}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
