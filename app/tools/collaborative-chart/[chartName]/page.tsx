@@ -138,8 +138,9 @@ function Room({
   return (
     <RoomProvider
       id={chartName}
-      initialStorage={{ points: new LiveList() }}
-      initialPresence={{}}
+      initialStorage={{ points: new LiveList(), pollOptions: new LiveList() }}
+      // TODO: How can I leave the name out?
+      initialPresence={{ name: null }}
     >
       <ClientSideSuspense fallback={<p>Loading...</p>}>
         {() => children}

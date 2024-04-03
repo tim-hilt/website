@@ -42,7 +42,7 @@ export default function NavBar() {
           >
             Tools
           </NavigationMenu.Trigger>
-          <NavigationMenu.Content className="data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut absolute mt-2 translate-y-1/2 whitespace-nowrap rounded-md border-[0.3px] border-gray-800 bg-white dark:border-gray-400 dark:bg-black">
+          <NavigationMenu.Content className="absolute mt-2 translate-y-1/2 whitespace-nowrap rounded-md border-[0.3px] border-gray-800 bg-white data-[state=closed]:animate-fadeOut data-[state=open]:animate-fadeIn dark:border-gray-400 dark:bg-black">
             <ul className="p-4 text-base">
               <li>
                 <Link href="/tools/collaborative-chart" legacyBehavior passHref>
@@ -51,6 +51,16 @@ export default function NavBar() {
                     className="flex font-light transition duration-100 hover:scale-105 data-[active]:font-medium"
                   >
                     Collaborative Chart
+                  </NavigationMenu.Link>
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/poll" legacyBehavior passHref>
+                  <NavigationMenu.Link
+                    active={pathname === "/tools/poll"}
+                    className="flex font-light transition duration-100 hover:scale-105 data-[active]:font-medium"
+                  >
+                    Collaborative Polls
                   </NavigationMenu.Link>
                 </Link>
               </li>

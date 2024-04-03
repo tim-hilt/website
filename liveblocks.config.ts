@@ -1,6 +1,7 @@
 import { LiveList, LiveObject, createClient } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import { Point } from "@/app/types/point";
+import { PollOption } from "@/app/types/pollOption";
 
 const client = createClient({
   publicApiKey:
@@ -14,7 +15,7 @@ const client = createClient({
 // `user.presence` property. Must be JSON-serializable.
 type Presence = {
   // cursor: { x: number, y: number } | null,
-  // ...
+  name: string | null;
 };
 
 // Optionally, Storage represents the shared document that persists in the
@@ -25,6 +26,7 @@ type Storage = {
   // author: LiveObject<{ firstName: string, lastName: string }>,
   // ...
   points: LiveList<LiveObject<Point>>;
+  pollOptions: LiveList<LiveObject<PollOption>>;
 };
 
 // Optionally, UserMeta represents static/readonly metadata on each user, as
