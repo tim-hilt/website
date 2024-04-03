@@ -136,18 +136,24 @@ function Poll({ pollName }: { pollName: string }) {
       <h1 className="text-2xl font-bold sm:text-3xl">
         {decodeURIComponent(pollName)}
       </h1>
-      {/** TODO: Refactor to use radix-ui Form */}
-      <form className="flex items-center space-x-4" onSubmit={onSubmit}>
-        <input
-          // TODO: Still has white inner for some reason
-          className="rounded-md border border-black px-2 py-1 [appearance:textfield] dark:border-gray-200 dark:bg-black [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-          placeholder="New Option"
-          name="new-option"
-        />
-        <button type="submit" className="h-8 w-8 rounded-full border">
-          <FontAwesomeIcon icon={faPlus} />
-        </button>
-      </form>
+      <Form.Root className="flex items-center space-x-4" onSubmit={onSubmit}>
+        <Form.Field name="new-option">
+          <Form.Control asChild>
+            <input
+              className="rounded-md border border-black px-2 py-1 [appearance:textfield] dark:border-gray-200 dark:bg-black [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              placeholder="New Option"
+            />
+          </Form.Control>
+        </Form.Field>
+        <Form.Submit asChild>
+          <button
+            type="submit"
+            className="h-8 w-8 rounded-full border border-black dark:border-white"
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+        </Form.Submit>
+      </Form.Root>
       <table className="table-fixed border-separate border-spacing-3">
         <tbody>
           {options
@@ -161,7 +167,7 @@ function Poll({ pollName }: { pollName: string }) {
                     onCheckedChange={(checked: boolean | "indeterminate") =>
                       onCheckedChange(checked, option.id)
                     }
-                    className="flex h-[25px] w-[25px] appearance-none items-center justify-center rounded border p-1 outline-none"
+                    className="flex h-[25px] w-[25px] appearance-none items-center justify-center rounded border border-black p-1 outline-none dark:border-white"
                   >
                     <Checkbox.Indicator>
                       <FontAwesomeIcon icon={faCheck} />
@@ -185,7 +191,10 @@ function Poll({ pollName }: { pollName: string }) {
                   </div>
                 </td>
                 <td className="w-6" align="center">
-                  <button onClick={() => deleteOption(option.id)}>
+                  <button
+                    className="rounded border border-black p-2 dark:border-white"
+                    onClick={() => deleteOption(option.id)}
+                  >
                     <FontAwesomeIcon icon={faTrash} />
                   </button>
                 </td>
