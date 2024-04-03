@@ -7,6 +7,7 @@ import { faCheck, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import {
   RoomProvider,
   useMutation,
+  useOthers,
   useSelf,
   useStorage,
 } from "@/liveblocks.config";
@@ -74,6 +75,7 @@ function Room({
 function Poll({ pollName }: { pollName: string }) {
   const options = useStorage((root) => root.pollOptions);
   const name = useSelf((me) => me.presence.name);
+  const others = useOthers();
 
   const addPollOption = useMutation(({ storage }, name) => {
     storage
@@ -126,9 +128,19 @@ function Poll({ pollName }: { pollName: string }) {
 
   return (
     <div className="flex flex-col space-y-8">
-      <h1 className="text-2xl font-bold sm:text-3xl">
-        {decodeURIComponent(pollName)}
-      </h1>
+      <div className="flex flex-col sm:flex-row sm:items-center">
+        <h1 className="text-2xl font-bold sm:grow sm:text-3xl">
+          {decodeURIComponent(pollName)}
+        </h1>
+        <div className="flex space-x-1 truncate sm:w-1/3 sm:justify-end">
+          <p className="font-semibold">Online Users:</p>
+          <p className="font-light">{`${name}${
+            others.length > 0
+              ? ", " + others.map((o) => o.presence.name).join(", ")
+              : ""
+          }`}</p>
+        </div>
+      </div>
       <Form.Root className="flex items-center space-x-4" onSubmit={onSubmit}>
         <Form.Field name="new-option">
           <Form.Control asChild>
