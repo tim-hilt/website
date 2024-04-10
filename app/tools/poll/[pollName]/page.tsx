@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useState, type FormEvent, type ReactNode, useEffect } from "react";
 import * as Checkbox from "@radix-ui/react-checkbox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +14,7 @@ import {
 import { ClientSideSuspense } from "@liveblocks/react";
 import { LiveList, LiveObject } from "@liveblocks/client";
 import * as Form from "@radix-ui/react-form";
+import { Reorder } from "framer-motion";
 
 function Room({
   roomName,
@@ -22,8 +23,14 @@ function Room({
   roomName: string;
   children: ReactNode;
 }) {
-  const n = localStorage.getItem("user-name");
-  const [name, setName] = useState(n || "");
+  // HACK: This has to be done in order to satisfy
+  //       Next.js' SSR
+  // TODO: This brings back the flashing
+  const [name, setName] = useState("");
+  useEffect(() => {
+    const n = localStorage.getItem("user-name")!;
+    setName(n);
+  }, []);
 
   const updateName = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -99,9 +106,7 @@ function Poll({ pollName }: { pollName: string }) {
   };
 
   const addNameToCheckedBy = useMutation(({ storage }, id) => {
-    const option = storage
-      .get("pollOptions")
-      .find((option) => option.get("id") === id);
+    const option = storage.get("pollOptions").find((o) => o.get("id") === id);
     option?.set("checkedBy", [...option?.get("checkedBy")!, name!]);
   }, []);
 
@@ -112,6 +117,21 @@ function Poll({ pollName }: { pollName: string }) {
     option?.set(
       "checkedBy",
       option.get("checkedBy").filter((n) => n !== name),
+    );
+  }, []);
+
+  const setPollOptions = useMutation(({ storage }, options) => {
+    storage.set(
+      "pollOptions",
+      new LiveList(
+        options.map((o: { id: string; name: string; checkedBy: string[] }) => {
+          return new LiveObject({
+            id: o.id,
+            name: o.name,
+            checkedBy: o.checkedBy,
+          });
+        }),
+      ),
     );
   }, []);
 
@@ -172,55 +192,48 @@ function Poll({ pollName }: { pollName: string }) {
           </button>
         </Form.Submit>
       </Form.Root>
-      <table className="w-full table-fixed border-separate border-spacing-3">
-        <tbody>
-          {options.map((option) => (
-            /* TODO: Include dndkit for custom sorting */
-            <tr key={option.id}>
-              <td>{option.name}</td>
-              <td className="w-10" align="center">
-                <Checkbox.Root
-                  defaultChecked={option.checkedBy.includes(name!)}
-                  onCheckedChange={(checked: boolean | "indeterminate") =>
-                    onCheckedChange(checked, option.id)
-                  }
-                  className="flex h-[25px] w-[25px] appearance-none items-center justify-center rounded border border-black p-1 outline-none dark:border-white"
-                >
-                  <Checkbox.Indicator>
-                    <FontAwesomeIcon icon={faCheck} />
-                  </Checkbox.Indicator>
-                </Checkbox.Root>
-              </td>
-              <td className="w-1/3" align="center">
-                <div
-                  className="flex items-center space-x-2"
-                  // TODO: Replace title with Tooltip-Component
-                  title={option.checkedBy.join(", ")}
-                >
-                  {option.checkedBy.length > 0 && (
-                    <>
-                      <p className="font-bold">
-                        {`${option.checkedBy.length}:`}
-                      </p>
-                      <p className="truncate font-light">
-                        {option.checkedBy.join(", ")}
-                      </p>
-                    </>
-                  )}
-                </div>
-              </td>
-              <td className="w-6" align="center">
-                <button
-                  className="rounded border border-black p-2 dark:border-white"
-                  onClick={() => deleteOption(option.id)}
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Reorder.Group
+        values={options as { id: string; name: string; checkedBy: string[] }[]}
+        onReorder={setPollOptions}
+        className="space-y-3"
+      >
+        {options.map((option) => (
+          <Reorder.Item key={option.id} value={option}>
+            <div className="flex w-full items-center space-x-2 sm:space-x-7">
+              {/* <p className="grow">{option.name}</p> */}
+              <p className="grow">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Corrupti ratione repudiandae ad atque numquam voluptates
+                suscipit repellat corporis praesentium. Dolorum consectetur nemo
+                sapiente modi expedita mollitia necessitatibus sequi animi!
+                Fuga.
+              </p>
+              <Checkbox.Root
+                defaultChecked={option.checkedBy.includes(name!)}
+                onCheckedChange={(checked: boolean | "indeterminate") =>
+                  onCheckedChange(checked, option.id)
+                }
+                className="flex min-h-[25px] min-w-[25px] appearance-none items-center justify-center rounded border border-black p-1 outline-none dark:border-white"
+              >
+                <Checkbox.Indicator>
+                  <FontAwesomeIcon icon={faCheck} />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
+              <p className="w-10 text-right text-xl font-bold">{`${option.checkedBy.length}`}</p>
+              {/** TODO: Make button functional */}
+              <button className="text-nowrap rounded border border-black p-1.5 dark:border-white">
+                Show Votes
+              </button>
+              <button
+                className="rounded border border-black p-2 dark:border-white"
+                onClick={() => deleteOption(option.id)}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+            </div>
+          </Reorder.Item>
+        ))}
+      </Reorder.Group>
       <h2 className="text-xl">All Voters</h2>
       <ul>
         {getVoters().map((v) => (
