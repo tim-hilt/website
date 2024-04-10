@@ -4,8 +4,7 @@ import { Point } from "@/app/types/point";
 import { PollOption } from "@/app/types/pollOption";
 
 const client = createClient({
-  publicApiKey:
-    "pk_prod_pF2A_hZ6yOKk4NZcXwwsFVFeMsBwLnGLekOHtgN1u4UuS4FKKRNOkImbz_MSEBAN",
+  publicApiKey: process.env.NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY!,
   // authEndpoint: "/api/auth",
   // throttle: 100,
 });
