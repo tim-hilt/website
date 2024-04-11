@@ -236,7 +236,7 @@ function Poll({ pollName }: { pollName: string }) {
                   <FontAwesomeIcon icon={faCheck} />
                 </Checkbox.Indicator>
               </Checkbox.Root>
-              <p className="w-10 text-right text-xl font-bold">{`${option.checkedBy.length}`}</p>
+              <p className="min-w-10 max-w-10 text-right text-xl font-bold">{`${option.checkedBy.length}`}</p>
               <div className="min-w-[56px] max-w-[56px]">
                 {option.checkedBy.length > 0 && (
                   <Dialog.Root>
