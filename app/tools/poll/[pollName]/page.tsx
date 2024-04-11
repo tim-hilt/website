@@ -250,11 +250,11 @@ function Item({ option }: { option: PollOption }) {
   return (
     <Reorder.Item value={option} dragListener={false} dragControls={controls}>
       <div className="flex w-full items-center space-x-2 sm:space-x-7">
-        <div className="hidden sm:block">
-          <FontAwesomeIcon
-            icon={faGrip}
-            onPointerDown={(e) => controls.start(e)}
-          />
+        <div
+          className="hidden touch-none sm:block"
+          onPointerDown={(e) => controls.start(e)}
+        >
+          <FontAwesomeIcon icon={faGrip} />
         </div>
         <p className="grow">{option.name}</p>
         <Checkbox.Root
