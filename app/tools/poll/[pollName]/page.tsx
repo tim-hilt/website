@@ -308,7 +308,7 @@ function Item({ option }: { option: PollOption }) {
             <Dialog.Overlay className="fixed inset-0 bg-black/70" />
             <Dialog.Content className="fixed left-[50%] top-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded border border-black bg-white p-[25px] focus:outline-none dark:border-white dark:bg-black">
               <Dialog.Title className="text-xl font-medium text-black dark:text-white">
-                Delete "{option.name}"
+                Delete &quot;{option.name}&quot;
               </Dialog.Title>
               <Dialog.Description className="mb-4 text-sm text-gray-600 dark:text-gray-400">
                 Click on background to close
