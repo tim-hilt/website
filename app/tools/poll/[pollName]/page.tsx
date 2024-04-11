@@ -3,7 +3,12 @@
 import { useState, type FormEvent, type ReactNode, useEffect } from "react";
 import * as Checkbox from "@radix-ui/react-checkbox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faPlus,
+  faTrash,
+  faGrip,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   RoomProvider,
   useMutation,
@@ -15,7 +20,8 @@ import { ClientSideSuspense } from "@liveblocks/react";
 import { LiveList, LiveObject } from "@liveblocks/client";
 import * as Form from "@radix-ui/react-form";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Reorder } from "framer-motion";
+import { Reorder, useDragControls } from "framer-motion";
+import { PollOption } from "@/app/types/pollOption";
 
 function Room({
   roomName,
@@ -82,7 +88,6 @@ function Room({
 
 function Poll({ pollName }: { pollName: string }) {
   const options = useStorage((root) => root.pollOptions);
-  const name = useSelf((me) => me.presence.name);
   const others = useOthers();
 
   const addPollOption = useMutation(({ storage }, name) => {
@@ -93,33 +98,12 @@ function Poll({ pollName }: { pollName: string }) {
       );
   }, []);
 
-  const deleteOption = useMutation(({ storage }, id) => {
-    const options = storage.get("pollOptions");
-    const idx = options.findIndex((option) => option.get("id") === id);
-    options.delete(idx);
-  }, []);
-
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const newOption = String(formData.get("new-option"));
     addPollOption(newOption);
   };
-
-  const addNameToCheckedBy = useMutation(({ storage }, id) => {
-    const option = storage.get("pollOptions").find((o) => o.get("id") === id);
-    option?.set("checkedBy", [...option?.get("checkedBy")!, name!]);
-  }, []);
-
-  const removeNameFromCheckedBy = useMutation(({ storage }, id) => {
-    const option = storage
-      .get("pollOptions")
-      .find((option) => option.get("id") === id);
-    option?.set(
-      "checkedBy",
-      option.get("checkedBy").filter((n) => n !== name),
-    );
-  }, []);
 
   const setPollOptions = useMutation(({ storage }, options) => {
     storage.set(
@@ -135,17 +119,6 @@ function Poll({ pollName }: { pollName: string }) {
       ),
     );
   }, []);
-
-  const onCheckedChange = (
-    checked: boolean | "indeterminate",
-    optionId: string,
-  ) => {
-    if (checked) {
-      addNameToCheckedBy(optionId);
-      return;
-    }
-    removeNameFromCheckedBy(optionId);
-  };
 
   const getVoters = (): Array<string> => {
     const voters = new Set<string>();
@@ -220,91 +193,10 @@ function Poll({ pollName }: { pollName: string }) {
         values={options as { id: string; name: string; checkedBy: string[] }[]}
         onReorder={setPollOptions}
         className="space-y-3"
+        axis="y"
       >
         {options.map((option) => (
-          <Reorder.Item key={option.id} value={option}>
-            <div className="flex w-full items-center space-x-2 sm:space-x-7">
-              <p className="grow">{option.name}</p>
-              <Checkbox.Root
-                defaultChecked={option.checkedBy.includes(name!)}
-                onCheckedChange={(checked: boolean | "indeterminate") =>
-                  onCheckedChange(checked, option.id)
-                }
-                className="flex max-h-[42px] min-h-[42px] min-w-[42px] max-w-[42px] appearance-none items-center justify-center rounded border border-black p-1 outline-none dark:border-white"
-              >
-                <Checkbox.Indicator>
-                  <FontAwesomeIcon icon={faCheck} />
-                </Checkbox.Indicator>
-              </Checkbox.Root>
-              <p className="min-w-10 max-w-10 text-right text-xl font-bold">{`${option.checkedBy.length}`}</p>
-              <div className="min-w-[56px] max-w-[56px]">
-                {option.checkedBy.length > 0 && (
-                  <Dialog.Root>
-                    <Dialog.Trigger asChild>
-                      <button className="h-[42px] text-nowrap rounded border border-black p-1.5 dark:border-white">
-                        Votes
-                      </button>
-                    </Dialog.Trigger>
-                    <Dialog.Portal>
-                      <Dialog.Overlay className="fixed inset-0 bg-black/70" />
-                      <Dialog.Content className="fixed left-[50%] top-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded border border-black bg-white p-[25px] focus:outline-none dark:border-white dark:bg-black">
-                        <Dialog.Title className="text-xl font-medium text-black dark:text-white">
-                          Votes
-                        </Dialog.Title>
-                        <Dialog.Description className="mb-4 text-sm text-gray-600 dark:text-gray-400">
-                          Click on background to close
-                        </Dialog.Description>
-                        <ul className="ml-6">
-                          {option.checkedBy.map((cb) => (
-                            <li className="list-disc" key={cb}>
-                              {cb}
-                            </li>
-                          ))}
-                        </ul>
-                      </Dialog.Content>
-                    </Dialog.Portal>
-                  </Dialog.Root>
-                )}
-              </div>
-              <Dialog.Root>
-                <Dialog.Trigger asChild>
-                  <button className="h-[42px] rounded border border-black p-2 dark:border-white">
-                    <FontAwesomeIcon icon={faTrash} />
-                  </button>
-                </Dialog.Trigger>
-                <Dialog.Portal>
-                  <Dialog.Overlay className="fixed inset-0 bg-black/70" />
-                  <Dialog.Content className="fixed left-[50%] top-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded border border-black bg-white p-[25px] focus:outline-none dark:border-white dark:bg-black">
-                    <Dialog.Title className="text-xl font-medium text-black dark:text-white">
-                      Delete {option.name}
-                    </Dialog.Title>
-                    <Dialog.Description className="mb-4 text-sm text-gray-600 dark:text-gray-400">
-                      Click on background to close
-                    </Dialog.Description>
-                    <p className="mb-4">
-                      Deleting this option will also delete all its votes. Are
-                      you sure you want to delete?
-                    </p>
-                    <div className="flex justify-between">
-                      <Dialog.Close asChild>
-                        <button className="rounded border border-black px-2 py-1 dark:border-white">
-                          Dismiss
-                        </button>
-                      </Dialog.Close>
-                      <Dialog.Close asChild>
-                        <button
-                          className=""
-                          onClick={() => deleteOption(option.id)}
-                        >
-                          Delete
-                        </button>
-                      </Dialog.Close>
-                    </div>
-                  </Dialog.Content>
-                </Dialog.Portal>
-              </Dialog.Root>
-            </div>
-          </Reorder.Item>
+          <Item key={option.id} option={option} />
         ))}
       </Reorder.Group>
       <h2 className="text-xl">All Voters</h2>
@@ -316,6 +208,132 @@ function Poll({ pollName }: { pollName: string }) {
         ))}
       </ul>
     </div>
+  );
+}
+
+function Item({ option }: { option: PollOption }) {
+  const name = useSelf((me) => me.presence.name);
+  const controls = useDragControls();
+
+  const deleteOption = useMutation(({ storage }, id) => {
+    const options = storage.get("pollOptions");
+    const idx = options.findIndex((option) => option.get("id") === id);
+    options.delete(idx);
+  }, []);
+
+  const onCheckedChange = (
+    checked: boolean | "indeterminate",
+    optionId: string,
+  ) => {
+    if (checked) {
+      addNameToCheckedBy(optionId);
+      return;
+    }
+    removeNameFromCheckedBy(optionId);
+  };
+
+  const addNameToCheckedBy = useMutation(({ storage }, id) => {
+    const option = storage.get("pollOptions").find((o) => o.get("id") === id);
+    option?.set("checkedBy", [...option?.get("checkedBy")!, name!]);
+  }, []);
+
+  const removeNameFromCheckedBy = useMutation(({ storage }, id) => {
+    const option = storage
+      .get("pollOptions")
+      .find((option) => option.get("id") === id);
+    option?.set(
+      "checkedBy",
+      option.get("checkedBy").filter((n) => n !== name),
+    );
+  }, []);
+
+  return (
+    <Reorder.Item value={option} dragListener={false} dragControls={controls}>
+      <div className="flex w-full items-center space-x-2 sm:space-x-7">
+        <div className="hidden sm:block">
+          <FontAwesomeIcon
+            icon={faGrip}
+            onPointerDown={(e) => controls.start(e)}
+          />
+        </div>
+        <p className="grow">{option.name}</p>
+        <Checkbox.Root
+          defaultChecked={option.checkedBy.includes(name!)}
+          onCheckedChange={(checked: boolean | "indeterminate") =>
+            onCheckedChange(checked, option.id)
+          }
+          className="flex max-h-[42px] min-h-[42px] min-w-[42px] max-w-[42px] appearance-none items-center justify-center rounded border border-black p-1 outline-none dark:border-white"
+        >
+          <Checkbox.Indicator>
+            <FontAwesomeIcon icon={faCheck} />
+          </Checkbox.Indicator>
+        </Checkbox.Root>
+        <p className="min-w-10 max-w-10 text-right text-xl font-bold">{`${option.checkedBy.length}`}</p>
+        <div className="min-w-[56px] max-w-[56px]">
+          {option.checkedBy.length > 0 && (
+            <Dialog.Root>
+              <Dialog.Trigger asChild>
+                <button className="h-[42px] text-nowrap rounded border border-black p-1.5 dark:border-white">
+                  Votes
+                </button>
+              </Dialog.Trigger>
+              <Dialog.Portal>
+                <Dialog.Overlay className="fixed inset-0 bg-black/70" />
+                <Dialog.Content className="fixed left-[50%] top-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded border border-black bg-white p-[25px] focus:outline-none dark:border-white dark:bg-black">
+                  <Dialog.Title className="text-xl font-medium text-black dark:text-white">
+                    Votes
+                  </Dialog.Title>
+                  <Dialog.Description className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+                    Click on background to close
+                  </Dialog.Description>
+                  <ul className="ml-6">
+                    {option.checkedBy.map((cb) => (
+                      <li className="list-disc" key={cb}>
+                        {cb}
+                      </li>
+                    ))}
+                  </ul>
+                </Dialog.Content>
+              </Dialog.Portal>
+            </Dialog.Root>
+          )}
+        </div>
+        <Dialog.Root>
+          <Dialog.Trigger asChild>
+            <button className="h-[42px] rounded border border-black p-2 dark:border-white">
+              <FontAwesomeIcon icon={faTrash} />
+            </button>
+          </Dialog.Trigger>
+          <Dialog.Portal>
+            <Dialog.Overlay className="fixed inset-0 bg-black/70" />
+            <Dialog.Content className="fixed left-[50%] top-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded border border-black bg-white p-[25px] focus:outline-none dark:border-white dark:bg-black">
+              <Dialog.Title className="text-xl font-medium text-black dark:text-white">
+                Delete "{option.name}"
+              </Dialog.Title>
+              <Dialog.Description className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+                Click on background to close
+              </Dialog.Description>
+              <p className="mb-4">
+                Deleting this option will also delete all its votes. Are you
+                sure you want to delete?
+              </p>
+              <div className="flex justify-between">
+                <Dialog.Close asChild>
+                  <button className="rounded border border-black px-2 py-1 dark:border-white">
+                    Dismiss
+                  </button>
+                </Dialog.Close>
+                <Dialog.Close asChild>
+                  <button onClick={() => deleteOption(option.id)}>
+                    Delete
+                  </button>
+                </Dialog.Close>
+              </div>
+            </Dialog.Content>
+          </Dialog.Portal>
+        </Dialog.Root>
+      </div>
+    </Reorder.Item>
   );
 }
 
