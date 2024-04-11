@@ -14,6 +14,7 @@ import {
 import { ClientSideSuspense } from "@liveblocks/react";
 import { LiveList, LiveObject } from "@liveblocks/client";
 import * as Form from "@radix-ui/react-form";
+import * as Dialog from "@radix-ui/react-dialog";
 import { Reorder } from "framer-motion";
 
 function Room({
@@ -165,13 +166,36 @@ function Poll({ pollName }: { pollName: string }) {
           {decodeURIComponent(pollName)}
         </h1>
         <div className="flex space-x-1 truncate sm:w-1/3 sm:justify-end">
-          {/* TODO: Replace title with Tooltip-Component */}
-          <p
-            className="font-light"
-            title={others.map((o) => o.presence.name).join(", ")}
-          >
-            {others.length} other users online
-          </p>
+          <Dialog.Root>
+            <Dialog.Trigger asChild>
+              <button className="font-light">
+                {others.length} other users online
+              </button>
+            </Dialog.Trigger>
+            <Dialog.Portal>
+              <Dialog.Overlay className="fixed inset-0 bg-black/70" />
+              <Dialog.Content className="fixed left-[50%] top-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded border border-black bg-white p-[25px] focus:outline-none dark:border-white dark:bg-black">
+                <Dialog.Title className="text-xl font-medium text-black dark:text-white">
+                  Other Users Online
+                </Dialog.Title>
+                <Dialog.Description className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+                  Click on background to close
+                </Dialog.Description>
+                {others.length > 0 && (
+                  <ul className="ml-6">
+                    {others.map((o) => (
+                      <li className="list-disc" key={o.presence.name}>
+                        {o.presence.name}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {others.length === 0 && (
+                  <p>There are currently no other users online</p>
+                )}
+              </Dialog.Content>
+            </Dialog.Portal>
+          </Dialog.Root>
         </div>
       </div>
       <Form.Root className="flex items-center space-x-4" onSubmit={onSubmit}>
@@ -200,36 +224,85 @@ function Poll({ pollName }: { pollName: string }) {
         {options.map((option) => (
           <Reorder.Item key={option.id} value={option}>
             <div className="flex w-full items-center space-x-2 sm:space-x-7">
-              {/* <p className="grow">{option.name}</p> */}
-              <p className="grow">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Corrupti ratione repudiandae ad atque numquam voluptates
-                suscipit repellat corporis praesentium. Dolorum consectetur nemo
-                sapiente modi expedita mollitia necessitatibus sequi animi!
-                Fuga.
-              </p>
+              <p className="grow">{option.name}</p>
               <Checkbox.Root
                 defaultChecked={option.checkedBy.includes(name!)}
                 onCheckedChange={(checked: boolean | "indeterminate") =>
                   onCheckedChange(checked, option.id)
                 }
-                className="flex min-h-[25px] min-w-[25px] appearance-none items-center justify-center rounded border border-black p-1 outline-none dark:border-white"
+                className="flex max-h-[42px] min-h-[42px] min-w-[42px] max-w-[42px] appearance-none items-center justify-center rounded border border-black p-1 outline-none dark:border-white"
               >
                 <Checkbox.Indicator>
                   <FontAwesomeIcon icon={faCheck} />
                 </Checkbox.Indicator>
               </Checkbox.Root>
               <p className="w-10 text-right text-xl font-bold">{`${option.checkedBy.length}`}</p>
-              {/** TODO: Make button functional */}
-              <button className="text-nowrap rounded border border-black p-1.5 dark:border-white">
-                Show Votes
-              </button>
-              <button
-                className="rounded border border-black p-2 dark:border-white"
-                onClick={() => deleteOption(option.id)}
-              >
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
+              <div className="min-w-[56px] max-w-[56px]">
+                {option.checkedBy.length > 0 && (
+                  <Dialog.Root>
+                    <Dialog.Trigger asChild>
+                      <button className="h-[42px] text-nowrap rounded border border-black p-1.5 dark:border-white">
+                        Votes
+                      </button>
+                    </Dialog.Trigger>
+                    <Dialog.Portal>
+                      <Dialog.Overlay className="fixed inset-0 bg-black/70" />
+                      <Dialog.Content className="fixed left-[50%] top-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded border border-black bg-white p-[25px] focus:outline-none dark:border-white dark:bg-black">
+                        <Dialog.Title className="text-xl font-medium text-black dark:text-white">
+                          Votes
+                        </Dialog.Title>
+                        <Dialog.Description className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+                          Click on background to close
+                        </Dialog.Description>
+                        <ul className="ml-6">
+                          {option.checkedBy.map((cb) => (
+                            <li className="list-disc" key={cb}>
+                              {cb}
+                            </li>
+                          ))}
+                        </ul>
+                      </Dialog.Content>
+                    </Dialog.Portal>
+                  </Dialog.Root>
+                )}
+              </div>
+              <Dialog.Root>
+                <Dialog.Trigger asChild>
+                  <button className="h-[42px] rounded border border-black p-2 dark:border-white">
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </Dialog.Trigger>
+                <Dialog.Portal>
+                  <Dialog.Overlay className="fixed inset-0 bg-black/70" />
+                  <Dialog.Content className="fixed left-[50%] top-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded border border-black bg-white p-[25px] focus:outline-none dark:border-white dark:bg-black">
+                    <Dialog.Title className="text-xl font-medium text-black dark:text-white">
+                      Delete {option.name}
+                    </Dialog.Title>
+                    <Dialog.Description className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+                      Click on background to close
+                    </Dialog.Description>
+                    <p className="mb-4">
+                      Deleting this option will also delete all its votes. Are
+                      you sure you want to delete?
+                    </p>
+                    <div className="flex justify-between">
+                      <Dialog.Close asChild>
+                        <button className="rounded border border-black px-2 py-1 dark:border-white">
+                          Dismiss
+                        </button>
+                      </Dialog.Close>
+                      <Dialog.Close asChild>
+                        <button
+                          className=""
+                          onClick={() => deleteOption(option.id)}
+                        >
+                          Delete
+                        </button>
+                      </Dialog.Close>
+                    </div>
+                  </Dialog.Content>
+                </Dialog.Portal>
+              </Dialog.Root>
             </div>
           </Reorder.Item>
         ))}
