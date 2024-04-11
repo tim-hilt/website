@@ -95,7 +95,7 @@ function Poll({ pollName }: { pollName: string }) {
 
   const deleteOption = useMutation(({ storage }, id) => {
     const options = storage.get("pollOptions");
-    const idx = options.findIndex((option) => option.toObject().id === id);
+    const idx = options.findIndex((option) => option.get("id") === id);
     options.delete(idx);
   }, []);
 
